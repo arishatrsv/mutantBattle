@@ -249,271 +249,73 @@ Los valores configurables del juego se manejarán mediante una clase de constant
 
 # UML
 
+```plantuml
 @startuml
 
-skinparam classAttributeIconSize 0
-skinparam packageStyle rectangle
+title Mutant Battle - UML
 
-package modelo {
+' ========================= MODEL =========================
+
+package "Model" {
 
     class Persona {
-        - edad : byte
-        # nombre : String
-        - deudasAPagar : double
-        - power : IPower
+        - edad: byte
+        # nombre: String
+        - deudasAPagar: double
+        - power: IPower
 
         + Persona()
-        + Persona(pEdad : byte, pNombre : String)
-        + Persona(pNombre : String, pEdad : byte)
-        + Persona(nombre : String)
+        + Persona(edad: byte, nombre: String)
+        + Persona(nombre: String, edad: byte)
+        + Persona(nombre: String)
 
-        + getNombre() : String
-        + getEdad() : byte
-        + setEdad(pEdad : byte) : void
-        + reducirDeudaConIngreso(pIngreso : double) : void
-        + cantar() : void
-        + setPower(pPower : IPower) : void
-        + atacar() : void
+        + getEdad(): byte
+        + setEdad(edad: byte): void
+        + getNombre(): String
+        + setNombre(nombre: String): void
+        + reducirDeudaConIngreso(ingreso: double): void
+        + cantar(): void
+        + setPower(power: IPower): void
+        + atacar(): void
     }
-
 
     class Mutante {
-        - energia : double
-        - defensa : int
-        - velocidad : double
-        - posicionX : double
-        - posicionY : double
-        - equipo : Team
+        - energia: double
+        - defensa: int
+        - velocidad: double
+        - posicionX: double
+        - posicionY: double
 
-        + Mutante(nombre : String, edad : byte)
-        + getEnergia() : double
-        + getDefensa() : int
-        + getVelocidad() : double
-        + getPosicionX() : double
-        + getPosicionY() : double
-        + getEquipo() : Team
-        + setEquipo(equipo : Team) : void
-        + recibirDanio(danio : double) : void
-        + estaVivo() : boolean
-        + mover(x : double, y : double) : void
-        + atacar(oponente : Mutante) : void
-        + defender() : void
+        + Mutante(...)
+        + getEnergia(): double
+        + setEnergia(energia: double): void
+        + getDefensa(): int
+        + setDefensa(defensa: int): void
+        + getVelocidad(): double
+        + setVelocidad(velocidad: double): void
+        + getPosicionX(): double
+        + getPosicionY(): double
+        + recibirDanio(danio: double): void
+        + estaVivo(): boolean
+        + mover(ancho: int, alto: int): void
+        + atacar(oponente: Mutante): void
+        + defender(): void
     }
-
 
     interface IPower {
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
     }
 
-
-    class PoderHielo {
-        - danio : int
-
-        + PoderHielo()
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
-    }
-
-
-    class PoderRayos {
-        - danio : int
-
-        + PoderRayos()
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
-    }
-
-
-    class PoderTelepatia {
-        - danio : int
-
-        + PoderTelepatia()
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
-    }
-
-
-    class PoderFuego {
-        - danio : int
-
-        + PoderFuego()
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
-    }
-
-
-    class PoderRegeneracion {
-        - danio : int
-
-        + PoderRegeneracion()
-        + dispararPoder() : void
-        + getDanio() : int
-        + aumentarDanio() : void
-    }
+    class PoderHielo
+    class PoderRayos
+    class PoderTelepatia
+    class PoderFuego
+    class PoderRegeneracion
 }
 
-package juego {
-
-    class Team {
-        - color : String
-        - simbolo : String
-        - mutantes : List<Mutante>
-
-        + Team(color : String, simbolo : String)
-        + agregarMutante(mutante : Mutante) : void
-        + getMutantes() : List<Mutante>
-        + getVivos() : int
-        + getMuertos() : int
-        + estaEliminado() : boolean
-    }
-
-
-    class Battlefield {
-        - ancho : int
-        - alto : int
-        - equipo1 : Team
-        - equipo2 : Team
-        - marcador : Scoreboard
-
-        + Battlefield(ancho : int, alto : int)
-        + crearEquipos(cantidad : int) : void
-        + getAncho() : int
-        + getAlto() : int
-        + getEquipo1() : Team
-        + getEquipo2() : Team
-        + getMarcador() : Scoreboard
-        + batallaTerminada() : boolean
-        + obtenerGanador() : Team
-    }
-
-
-    class Scoreboard {
-        - vivosEquipo1 : int
-        - muertosEquipo1 : int
-        - vivosEquipo2 : int
-        - muertosEquipo2 : int
-
-        + actualizar(equipo1 : Team, equipo2 : Team) : void
-        + getVivosEquipo1() : int
-        + getMuertosEquipo1() : int
-        + getVivosEquipo2() : int
-        + getMuertosEquipo2() : int
-    }
-}
-
-
-package control {
-
-    class BattleController {
-        - battlefield : Battlefield
-        - combatManager : CombatManager
-        - hilos : List<MutantThread>
-
-        + BattleController(battlefield : Battlefield)
-        + iniciarPartida(cantidad : int) : void
-        + iniciarMovimiento() : void
-        + controlarBatalla() : void
-        + terminarPartida() : void
-        + nuevaBatalla() : void
-    }
-
-
-    class MutantThread {
-        - mutante : Mutante
-        - battlefield : Battlefield
-        - combatManager : CombatManager
-
-        + MutantThread(mutante : Mutante,
-                       battlefield : Battlefield)
-        + run() : void
-        + detectarEnemigos() : void
-    }
-
-
-    class CombatManager {
-        - radioEncuentro : double
-
-        + CombatManager(radio : double)
-        + detectarEncuentro(mutante1 : Mutante,
-                            mutante2 : Mutante) : boolean
-        + ejecutarEncuentro(mutante1 : Mutante,
-                            mutante2 : Mutante) : void
-        + decidirAtaqueDefensa(mutante : Mutante) : boolean
-        + calcularDanio(atacante : Mutante,
-                        defensor : Mutante) : double
-        + aplicarDanio(atacante : Mutante,
-                       defensor : Mutante) : void
-        + aumentarPoder(mutante : Mutante) : void
-    }
-}
-
-package ui {
-
-    interface Observer {
-        + actualizar() : void
-    }
-
-
-    class BattlefieldView {
-        - battlefield : Battlefield
-
-        + BattlefieldView(battlefield : Battlefield)
-        + mostrarCampo() : void
-        + dibujarMutantes() : void
-        + mostrarEnergia() : void
-        + mostrarMarcador() : void
-        + mostrarGanador() : void
-        + actualizar() : void
-    }
-
-
-    class BattleControllerUI {
-        - battleController : BattleController
-        - battlefieldView : BattlefieldView
-
-        + BattleControllerUI(controller : BattleController,
-                             view : BattlefieldView)
-        + recibirTamanoEquipo() : int
-        + iniciarBatalla() : void
-        + nuevaBatalla() : void
-    }
-
-
-    class BattleWindow {
-        - battlefieldView : BattlefieldView
-        - battleControllerUI : BattleControllerUI
-
-        + BattleWindow()
-        + iniciar() : void
-    }
-}
-
-
-
-package constants {
-
-    class Constants {
-        {static} + INITIAL_ENERGY : double
-        {static} + MIN_DEFENSE : int
-        {static} + MAX_DEFENSE : int
-        {static} + MIN_DAMAGE : int
-        {static} + INITIAL_MAX_DAMAGE : int
-        {static} + MAX_DAMAGE : int
-        {static} + MIN_TEAM_SIZE : int
-        {static} + MAX_TEAM_SIZE : int
-        {static} + ENCOUNTER_RADIUS : double
-        {static} + BATTLEFIELD_WIDTH : int
-        {static} + BATTLEFIELD_HEIGHT : int
-        {static} + UI_REFRESH_RATE : int
-    }
-}
-
+' ================= INHERITANCE AND POLYMORPHISM =================
 
 Mutante --|> Persona
 
@@ -526,10 +328,97 @@ PoderRegeneracion ..|> IPower
 Mutante --> IPower : posee
 
 
-Team "1" o-- "*" Mutante : contiene
+' ========================= GAME =========================
 
-Battlefield "1" o-- "2" Team
-Battlefield --> Scoreboard
+package "Game" {
+
+    class Team {
+        - color: String
+        - simbolo: String
+        - mutantes: List<Mutante>
+
+        + Team(color: String, simbolo: String)
+        + agregarMutante(mutante: Mutante): void
+        + obtenerMutantes(): List<Mutante>
+        + contarVivos(): int
+        + contarMuertos(): int
+        + estaEliminado(): boolean
+    }
+
+    class Battlefield {
+        - ancho: int
+        - alto: int
+        - equipo1: Team
+        - equipo2: Team
+        - marcador: Scoreboard
+
+        + Battlefield(ancho: int, alto: int)
+        + crearEquipos(cantidad: int): void
+        + getAncho(): int
+        + getAlto(): int
+        + getEquipo1(): Team
+        + getEquipo2(): Team
+        + getMarcador(): Scoreboard
+        + batallaTerminada(): boolean
+        + obtenerGanador(): Team
+    }
+
+    class Scoreboard {
+        - vivosEquipo1: int
+        - muertosEquipo1: int
+        - vivosEquipo2: int
+        - muertosEquipo2: int
+
+        + actualizar(equipo1: Team, equipo2: Team): void
+        + getVivosEquipo1(): int
+        + getMuertosEquipo1(): int
+        + getVivosEquipo2(): int
+        + getMuertosEquipo2(): int
+    }
+}
+
+Team "1" o-- "*" Mutante : contiene
+Battlefield "1" o-- "2" Team : tiene
+Battlefield --> Scoreboard : utiliza
+
+
+' ======================== CONTROL ========================
+
+package "Control" {
+
+    class BattleController {
+        - battlefield: Battlefield
+        - combatManager: CombatManager
+        - hilos: List<MutantThread>
+
+        + iniciarJuego(cantidad: int): void
+        + generarEquipos(cantidad: int): void
+        + iniciarMovimiento(): void
+        + controlarBatalla(): void
+        + finalizarJuego(): void
+        + nuevaBatalla(): void
+    }
+
+    class MutantThread {
+        - mutante: Mutante
+        - battlefield: Battlefield
+        - combatManager: CombatManager
+
+        + run(): void
+        + detectarEnemigos(): void
+    }
+
+    class CombatManager {
+        - radioEncuentro: double
+
+        + detectarEncuentro(mutante1: Mutante, mutante2: Mutante): boolean
+        + ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void
+        + decidirAtaqueDefensa(mutante: Mutante): boolean
+        + calcularDanio(atacante: Mutante, defensor: Mutante): double
+        + aplicarDanio(defensor: Mutante, danio: double): void
+        + aumentarDanioPoder(atacante: Mutante): void
+    }
+}
 
 BattleController --> Battlefield
 BattleController --> CombatManager
@@ -541,14 +430,71 @@ MutantThread --> CombatManager
 
 CombatManager --> Mutante
 
-Observer <|.. BattlefieldView
 
+' =========================== UI ===========================
+
+package "UI" {
+
+    interface Observer {
+        + actualizar(): void
+    }
+
+    class BattlefieldView {
+        - battlefield: Battlefield
+
+        + mostrarCampo(): void
+        + dibujarMutantes(): void
+        + mostrarMarcador(): void
+        + mostrarGanador(): void
+        + actualizar(): void
+    }
+
+    class BattleControllerUI {
+        - battleController: BattleController
+        - battlefieldView: BattlefieldView
+
+        + recibirCantidadEquipo(): int
+        + iniciarBatalla(): void
+        + nuevaBatalla(): void
+    }
+
+    class BattleWindow {
+        - view: BattlefieldView
+        - controllerUI: BattleControllerUI
+
+        + iniciar(): void
+    }
+}
+
+BattlefieldView ..|> Observer
 BattlefieldView --> Battlefield
-
 BattleControllerUI --> BattleController
 BattleControllerUI --> BattlefieldView
-
 BattleWindow --> BattlefieldView
 BattleWindow --> BattleControllerUI
 
+
+' ======================== CONSTANTS ========================
+
+package "Constants" {
+
+    class Constants {
+        {static} + INITIAL_ENERGY: double
+        {static} + MIN_DEFENSE: int
+        {static} + MAX_DEFENSE: int
+        {static} + MIN_DAMAGE: int
+        {static} + INITIAL_MAX_DAMAGE: int
+        {static} + MAX_DAMAGE: int
+        {static} + MIN_TEAM_SIZE: int
+        {static} + MAX_TEAM_SIZE: int
+        {static} + ENCOUNTER_RADIUS: double
+        {static} + BATTLEFIELD_WIDTH: int
+        {static} + BATTLEFIELD_HEIGHT: int
+        {static} + UI_REFRESH_RATE: int
+    }
+}
+
 @enduml
+```
+
+
