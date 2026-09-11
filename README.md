@@ -254,10 +254,6 @@ Los valores configurables del juego se manejarán mediante una clase de constant
 skinparam classAttributeIconSize 0
 skinparam packageStyle rectangle
 
-' =====================================================
-' MODEL LAYER
-' =====================================================
-
 package modelo {
 
     class Persona {
@@ -362,11 +358,6 @@ package modelo {
     }
 }
 
-
-' =====================================================
-' GAME LAYER
-' =====================================================
-
 package juego {
 
     class Team {
@@ -417,10 +408,6 @@ package juego {
 }
 
 
-' =====================================================
-' CONTROL LAYER
-' =====================================================
-
 package control {
 
     class BattleController {
@@ -466,11 +453,6 @@ package control {
     }
 }
 
-
-' =====================================================
-' UI LAYER
-' =====================================================
-
 package ui {
 
     interface Observer {
@@ -513,9 +495,6 @@ package ui {
 }
 
 
-' =====================================================
-' CONSTANTS
-' =====================================================
 
 package constants {
 
@@ -536,10 +515,6 @@ package constants {
 }
 
 
-' =====================================================
-' INHERITANCE AND POLYMORPHISM
-' =====================================================
-
 Mutante --|> Persona
 
 PoderHielo ..|> IPower
@@ -551,19 +526,10 @@ PoderRegeneracion ..|> IPower
 Mutante --> IPower : posee
 
 
-' =====================================================
-' GAME RELATIONSHIPS
-' =====================================================
-
 Team "1" o-- "*" Mutante : contiene
 
 Battlefield "1" o-- "2" Team
 Battlefield --> Scoreboard
-
-
-' =====================================================
-' CONTROL RELATIONSHIPS
-' =====================================================
 
 BattleController --> Battlefield
 BattleController --> CombatManager
@@ -574,11 +540,6 @@ MutantThread --> Battlefield
 MutantThread --> CombatManager
 
 CombatManager --> Mutante
-
-
-' =====================================================
-' MVC + OBSERVER
-' =====================================================
 
 Observer <|.. BattlefieldView
 
