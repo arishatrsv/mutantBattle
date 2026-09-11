@@ -72,9 +72,9 @@ Representa un poder basado en rayos e implementa `IPower`.
 
 Representa un poder basado en telepatía e implementa `IPower`.
 
-### PoderTelequinesis
+### PoderFuego
 
-Representa un poder basado en telequinesis e implementa `IPower`.
+Representa un poder basado en el fuego e implementa `IPower`.
 
 ### PoderRegeneracion
 
