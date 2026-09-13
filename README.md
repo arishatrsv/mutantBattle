@@ -10,296 +10,360 @@ El proyecto será desarrollado en Java y estará organizado en cuatro capas: **M
 
 ---
 
-# Especificación de objetos
+# Estructura Caso#1
 
-## Model Layer
+## Capa Modelo
 
-Esta capa representa los objetos principales del sistema y sus características.
+Representa la información general
 
 ### Persona
 
-Clase base que representa la información general de una persona.
+- `nombre: String`
+- `edad: int`
 
-**Responsabilidades:**
+**Metodos**
 
-- Almacenar información básica de una persona.
-- Permitir consultar y modificar sus datos.
-- Servir como clase base para los mutantes.
+- `Persona(nombre: String, edad: int)`
+- `getNombre(): String`
+- `setNombre(nombre: String): void`
+- `getEdad(): int`
+- `setEdad(edad: int): void`
+
+---
 
 ### Mutante
 
-Representa a un participante de la batalla.
+Hereda de `Persona` y representa a un personaje de la batalla.
 
-**Características:**
+- `energia: double`
+- `defensa: int`
+- `posicionX: double`
+- `posicionY: double`
+- `poder: IPower`
 
-- Nombre.
-- Edad.
-- Energía.
-- Capacidad de defensa.
-- Posición dentro del campo.
-- Velocidad de movimiento.
-- Un poder mutante.
+**Metodos**
 
-**Responsabilidades:**
+- `Mutante(nombre: String, edad: int, energia: double, defensa: int, posicionX: double, posicionY: double, poder: IPower)`
+- `getEnergia(): double`
+- `setEnergia(energia: double): void`
+- `getDefensa(): int`
+- `setDefensa(defensa: int): void`
+- `getPosicionX(): double`
+- `setPosicionX(posicionX: double): void`
+- `getPosicionY(): double`
+- `setPosicionY(posicionY: double): void`
+- `getPoder(): IPower`
+- `setPoder(poder: IPower): void`
+- `estaVivo(): boolean`
+- `recibirDanio(danio: double): void`
+- `mover(ancho: int, alto: int): void`
 
-- Mantener su estado durante la batalla.
-- Moverse dentro del campo de batalla.
-- Atacar a otros mutantes.
-- Defenderse de los ataques.
-- Recibir daño.
-- Mantener actualizada su energía.
-- Determinar si continúa con vida.
+---
 
 ### IPower
 
-Interfaz que define el comportamiento general de los poderes mutantes.
+ Comportamiento de los poderes mutantes.
 
-**Responsabilidades:**
+**Metodos**
 
-- Definir las operaciones que debe tener un poder.
-- Mantener su capacidad de daño.
-- Permitir diferentes tipos de poderes mediante polimorfismo.
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
+
+---
+
+Cada Poder usará IPower 
 
 ### PoderHielo
 
-Representa un poder basado en hielo e implementa `IPower`.
+- `danio: int`
+
+**Metodos**
+
+- `PoderHielo(danio: int)`
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
+
+---
 
 ### PoderRayos
 
-Representa un poder basado en rayos e implementa `IPower`.
+- `danio: int`
+
+**Metodos**
+
+- `PoderRayos(danio: int)`
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
+
+---
 
 ### PoderTelepatia
 
-Representa un poder basado en telepatía e implementa `IPower`.
+- `danio: int`
+
+**Metodos**
+
+- `PoderTelepatia(danio: int)`
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
+
+---
 
 ### PoderFuego
 
-Representa un poder basado en el fuego e implementa `IPower`.
+- `danio: int`
+
+**Metodos**
+
+- `PoderFuego(danio: int)`
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
+
+---
 
 ### PoderRegeneracion
 
-Representa un poder basado en regeneración e implementa `IPower`.
+- `danio: int`
+
+**Metodos**
+
+- `PoderRegeneracion(danio: int)`
+- `dispararPoder(): void`
+- `getDanio(): int`
+- `aumentarDanio(): void`
 
 ---
 
-# Game Layer
+# Capa Juego
 
-Esta capa representa el espacio de juego y administra los equipos que participan en la batalla.
+Hace los equipos y el Campo de Batalla
 
-### Team
+### Equipo
 
-Representa uno de los dos equipos de mutantes.
+- `color: String`
+- `simbolo: String`
+- `mutantes: List<Mutante>`
 
-**Características:**
+**Metodos**
 
-- Color.
-- Escudo o símbolo.
-- Mutantes pertenecientes al equipo.
-
-**Responsabilidades:**
-
-- Mantener los mutantes del equipo.
-- Identificar al equipo mediante su color y símbolo.
-- Contabilizar los mutantes vivos.
-- Contabilizar los mutantes muertos.
-
-### Battlefield
-
-Representa el campo de batalla y su estado actual.
-
-**Características:**
-
-- Dimensiones del campo.
-- Dos equipos.
-- Marcador de la batalla.
-
-**Responsabilidades:**
-
-- Crear y mantener los dos equipos.
-- Mantener la misma cantidad de mutantes en ambos equipos.
-- Proporcionar las dimensiones del campo a los mutantes.
-- Mantener el control del estado de la batalla.
-- Llevar el conteo de mutantes vivos y muertos.
-- Mantener el marcador.
-- Determinar cuándo termina la batalla.
-- Determinar el equipo ganador.
-
-El tamaño de los equipos estará entre **3 y 11 mutantes**.
+- `Equipo(color: String, simbolo: String)`
+- `agregarMutante(mutante: Mutante): void`
+- `getMutantes(): List<Mutante>`
+- `contarVivos(): int`
+- `contarMuertos(): int`
+- `estaEliminado(): boolean`
 
 ---
 
-# Control Layer
+### Marcador
 
-Esta capa contiene la lógica necesaria para ejecutar la batalla.
+Para saber cuantos vivos y muertos hay
 
-### BattleController
+- `vivosEquipo1: int`
+- `muertosEquipo1: int`
+- `vivosEquipo2: int`
+- `muertosEquipo2: int`
 
-Controla el desarrollo general de una partida.
+**Metodos**
 
-**Responsabilidades:**
+- `actualizar(equipo1: Equipo, equipo2: Equipo): void`
+- `getVivosEquipo1(): int`
+- `getMuertosEquipo1(): int`
+- `getVivosEquipo2(): int`
+- `getMuertosEquipo2(): int`
 
-- Iniciar una nueva partida.
-- Generar los equipos y sus mutantes.
-- Iniciar el movimiento de los mutantes.
-- Coordinar el desarrollo de la batalla.
-- Detectar cuándo termina la partida.
-- Permitir iniciar una nueva batalla.
+---
 
-### MutantThread
+### CampoBatalla
 
-Controla las acciones de un mutante durante la batalla mediante concurrencia.
+Hace el campo de batalla y mantiene los equipos y el marcador.
 
-**Responsabilidades:**
+- `equipo1: Equipo`
+- `equipo2: Equipo`
+- `marcador: Marcador`
 
-- Ejecutar el movimiento del mutante.
-- Detectar enemigos dentro del radio configurado.
-- Coordinar los encuentros con otros mutantes.
-- Permitir que diferentes encuentros ocurran de forma paralela.
+**Metodos**
 
-### CombatManager
+- `crearEquipos(cantidad: int): void`
+- `getEquipo1(): Equipo`
+- `getEquipo2(): Equipo`
+- `getMarcador(): Marcador`
+- `batallaTerminada(): boolean`
+- `obtenerGanador(): Equipo`
+
+---
+
+# Capa Control
+
+Aquí controla el movimiento, los encuentros y el combate.
+
+### ControladorBatalla
+
+Controla una partida.
+
+- `campoBatalla: CampoBatalla`
+- `administradorCombate: AdministradorCombate`
+- `hiloMutante: List<HiloMutante>`
+
+**Metodos**
+
+- `ControladorBatalla(campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)`
+- `iniciarJuego(cantidad: int): void`
+- `generarEquipos(cantidad: int): void`
+- `iniciarMovimiento(): void`
+- `controlarBatalla(): void`
+- `finalizarJuego(): void`
+- `nuevaBatalla(): void`
+
+---
+
+### HiloMutante
+
+Para detectar enemigos
+
+Usaremos un HiloMutante para cada mutante.
+
+- `mutante: Mutante`
+- `campoBatalla: CampoBatalla`
+- `administradorCombate: AdministradorCombate`
+
+**Metodos**
+
+- `HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)`
+- `correr(): void`
+- `detener(): void`
+- `detectarEnemigos(): List<Mutante>`
+
+---
+
+### AdministradorCombate
 
 Administra los encuentros entre mutantes enemigos.
 
-**Responsabilidades:**
+- `radioEncuentro: double`
 
-- Detectar encuentros entre mutantes.
-- Coordinar las decisiones de ataque y defensa.
-- Calcular el daño producido.
-- Actualizar la energía de los mutantes.
-- Aumentar la capacidad de daño del poder cuando corresponda.
-- Determinar cuándo un mutante queda fuera de combate.
+**Metodos**
+
+- `AdministradorCombate(radioEncuentro: double)`
+- `detectarEncuentro(mutante1: Mutante, mutante2: Mutante): boolean`
+- `ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void`
+- `decidirDefensa(): boolean`
+- `calcularDanio(atacante: Mutante, defensor: Mutante, defiende: boolean): double`
+- `aplicarDanio(defensor: Mutante, danio: double): void`
+- `aumentarDanioPoder(atacante: Mutante): void`
 
 ---
 
-# UI Layer
+# Interfaz
 
-Esta capa se encarga de representar visualmente el estado de la batalla. No contiene la lógica del juego.
+### Observer
 
-### BattlefieldView
+**Metodos**
 
-Representa la información de la batalla en la interfaz gráfica.
+- `actualizar(): void`
 
-**Responsabilidades:**
+---
 
-- Mostrar el campo de batalla.
-- Mostrar todos los mutantes y sus posiciones.
-- Identificar el equipo de cada mutante.
-- Mostrar la energía de cada mutante.
-- Mostrar la cantidad de mutantes vivos y muertos por equipo.
-- Mostrar el marcador.
-- Mostrar el equipo ganador.
-- Permitir iniciar una nueva partida.
+### VerCampoBatalla
 
-La vista utilizará el patrón **Observer** para recibir las actualizaciones del estado de la batalla.
+Representa visualmente el campo de batalla.
 
-### BattleControllerUI
+- `campoBatalla: CampoBatalla`
+
+**Metodos**
+
+- `VerCampoBatalla(campoBatalla: CampoBatalla)`
+- `mostrarCampo(): void`
+- `dibujarMutantes(): void`
+- `mostrarMarcador(): void`
+- `mostrarGanador(): void`
+- `actualizar(): void`
+
+usa `Observer`.
+
+---
+
+### BatallaUI
 
 Controla la interacción del usuario con la interfaz.
 
-**Responsabilidades:**
+- `controladorBatalla: ControladorBatalla`
+- `verCampoBatalla: VerCampoBatalla`
 
-- Recibir el tamaño de los equipos.
-- Iniciar la batalla.
-- Permitir iniciar una nueva partida después de finalizar un combate.
+**Metodos**
 
----
-
-# Reglas principales
-
-- Los equipos tendrán entre **3 y 11 mutantes**.
-- Ambos equipos comenzarán con la misma cantidad de mutantes.
-- Cada mutante comenzará con **100 puntos de energía**.
-- Cada mutante tendrá una capacidad de defensa entre **1 y 3**.
-- Cada mutante podrá tener como máximo **un poder**.
-- Cada poder comenzará con una capacidad de daño entre **1 y 3**.
-- La capacidad de daño de un poder podrá aumentar hasta un máximo de **7**.
-- Los mutantes se moverán continuamente dentro del campo de batalla.
-- El movimiento tendrá una velocidad determinada y seguirá un comportamiento aleatorio.
-- Cuando dos mutantes enemigos estén dentro del radio configurado, ambos decidirán entre atacar o defender.
-- Si el oponente no se defiende, recibirá el daño completo del poder.
-- Si el oponente se defiende, el daño se dividirá entre su capacidad de defensa.
-- Cuando un ataque reduzca la energía del oponente, el poder del atacante aumentará en **1 unidad**, hasta un máximo de **7**.
-- Los encuentros entre diferentes pares de mutantes podrán ejecutarse en paralelo mediante concurrencia.
-- La batalla terminará cuando uno de los equipos no tenga mutantes vivos.
+- `BatallaUI(controladorBatalla: ControladorBatalla, verCampoBatalla: VerCampoBatalla)`
+- `recibirCantidadEquipo(): int`
+- `iniciarBatalla(): void`
+- `nuevaBatalla(): void`
 
 ---
 
-# Arquitectura del proyecto
+# Constantes
 
-| Capa | Responsabilidad |
-|---|---|
-| **Model** | Representar los objetos, mutantes y poderes. |
-| **Game** | Administrar los equipos y el campo de batalla. |
-| **Control** | Ejecutar el movimiento y controlar los encuentros y combates. |
-| **UI** | Representar visualmente el estado de la batalla. |
+Valores configurables del juego.
 
-El diseño aplicará los principios de:
+- `INICIAL_ENERGIA: int`
+- `MIN_TAMANO_EQUIPO: int`
+- `MAX_TAMANO_EQUIPO: int`
+- `MIN_DEFENSA: int`
+- `MAX_DEFENSA: int`
+- `MIN_PODER_DANIO: int`
+- `MAX_PODER_DANIO: int`
+- `DANIO_AUMENTA: int`
+- `MISMA_VELOCIDAD: double`
+- `ENCUENTRO_RADIO: double`
+- `ALTO_CAMPOBATALLA: int`
+- `ANCHO_CAMPOBATALLA: int`
 
-- **Encapsulamiento**
-- **Herencia**
-- **Polimorfismo**
-- **Separación de responsabilidades**
+---
+#UML
 
-La interfaz gráfica utilizará los patrones:
-
-- **MVC (Model-View-Controller)**
-- **Observer**
-
-Los valores configurables del juego se manejarán mediante una clase de constantes para evitar valores definidos directamente dentro de las clases.
-
-# UML
-
-```plantuml
 @startuml
 
-title Mutant Battle - UML
+skinparam classAttributeIconSize 0
 
-' ========================= MODEL =========================
+title Mutant Battle - UML
 
 package "Model" {
 
     class Persona {
-        - edad: byte
-        # nombre: String
-        - deudasAPagar: double
-        - power: IPower
+        - nombre: String
+        - edad: int
 
-        + Persona()
-        + Persona(edad: byte, nombre: String)
-        + Persona(nombre: String, edad: byte)
-        + Persona(nombre: String)
-
-        + getEdad(): byte
-        + setEdad(edad: byte): void
+        + Persona(nombre: String, edad: int)
         + getNombre(): String
         + setNombre(nombre: String): void
-        + reducirDeudaConIngreso(ingreso: double): void
-        + cantar(): void
-        + setPower(power: IPower): void
-        + atacar(): void
+        + getEdad(): int
+        + setEdad(edad: int): void
     }
 
     class Mutante {
         - energia: double
         - defensa: int
-        - velocidad: double
         - posicionX: double
         - posicionY: double
+        - poder: IPower
 
-        + Mutante(...)
+        + Mutante(nombre: String, edad: int, energia: double, defensa: int, posicionX: double, posicionY: double, poder: IPower)
         + getEnergia(): double
         + setEnergia(energia: double): void
         + getDefensa(): int
         + setDefensa(defensa: int): void
-        + getVelocidad(): double
-        + setVelocidad(velocidad: double): void
         + getPosicionX(): double
+        + setPosicionX(posicionX: double): void
         + getPosicionY(): double
-        + recibirDanio(danio: double): void
+        + setPosicionY(posicionY: double): void
+        + getPoder(): IPower
+        + setPoder(poder: IPower): void
         + estaVivo(): boolean
+        + recibirDanio(danio: double): void
         + mover(ancho: int, alto: int): void
-        + atacar(oponente: Mutante): void
-        + defender(): void
     }
 
     interface IPower {
@@ -308,89 +372,120 @@ package "Model" {
         + aumentarDanio(): void
     }
 
-    class PoderHielo
-    class PoderRayos
-    class PoderTelepatia
-    class PoderFuego
-    class PoderRegeneracion
+    class PoderHielo {
+        - danio: int
+
+        + PoderHielo(danio: int)
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
+    }
+
+    class PoderRayos {
+        - danio: int
+
+        + PoderRayos(danio: int)
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
+    }
+
+    class PoderTelepatia {
+        - danio: int
+
+        + PoderTelepatia(danio: int)
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
+    }
+
+    class PoderFuego {
+        - danio: int
+
+        + PoderFuego(danio: int)
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
+    }
+
+    class PoderRegeneracion {
+        - danio: int
+
+        + PoderRegeneracion(danio: int)
+        + dispararPoder(): void
+        + getDanio(): int
+        + aumentarDanio(): void
+    }
+
+    Persona <|-- Mutante
+
+    IPower <|.. PoderHielo
+    IPower <|.. PoderRayos
+    IPower <|.. PoderTelepatia
+    IPower <|.. PoderFuego
+    IPower <|.. PoderRegeneracion
+
+    Mutante --> IPower
 }
-
-' ================= INHERITANCE AND POLYMORPHISM =================
-
-Mutante --|> Persona
-
-PoderHielo ..|> IPower
-PoderRayos ..|> IPower
-PoderTelepatia ..|> IPower
-PoderFuego ..|> IPower
-PoderRegeneracion ..|> IPower
-
-Mutante --> IPower : posee
-
-
-' ========================= GAME =========================
 
 package "Game" {
 
-    class Team {
+    class Equipo {
         - color: String
         - simbolo: String
         - mutantes: List<Mutante>
 
-        + Team(color: String, simbolo: String)
+        + Equipo(color: String, simbolo: String)
         + agregarMutante(mutante: Mutante): void
-        + obtenerMutantes(): List<Mutante>
+        + getMutantes(): List<Mutante>
         + contarVivos(): int
         + contarMuertos(): int
         + estaEliminado(): boolean
     }
 
-    class Battlefield {
-        - ancho: int
-        - alto: int
-        - equipo1: Team
-        - equipo2: Team
-        - marcador: Scoreboard
-
-        + Battlefield(ancho: int, alto: int)
-        + crearEquipos(cantidad: int): void
-        + getAncho(): int
-        + getAlto(): int
-        + getEquipo1(): Team
-        + getEquipo2(): Team
-        + getMarcador(): Scoreboard
-        + batallaTerminada(): boolean
-        + obtenerGanador(): Team
-    }
-
-    class Scoreboard {
+    class Marcador {
         - vivosEquipo1: int
         - muertosEquipo1: int
         - vivosEquipo2: int
         - muertosEquipo2: int
 
-        + actualizar(equipo1: Team, equipo2: Team): void
+        + actualizar(equipo1: Equipo, equipo2: Equipo): void
         + getVivosEquipo1(): int
         + getMuertosEquipo1(): int
         + getVivosEquipo2(): int
         + getMuertosEquipo2(): int
     }
+
+    class CampoBatalla {
+        - equipo1: Equipo
+        - equipo2: Equipo
+        - marcador: Marcador
+
+        + crearEquipos(cantidad: int): void
+        + getEquipo1(): Equipo
+        + getEquipo2(): Equipo
+        + getMarcador(): Marcador
+        + batallaTerminada(): boolean
+        + obtenerGanador(): Equipo
+    }
+
+    Equipo "1" *-- "0..*" Mutante
+
+    CampoBatalla "1" *-- "1" Equipo : equipo1
+    CampoBatalla "1" *-- "1" Equipo : equipo2
+    CampoBatalla "1" *-- "1" Marcador
+
+    Marcador --> Equipo
 }
-
-Team "1" o-- "*" Mutante : contiene
-Battlefield "1" o-- "2" Team : tiene
-Battlefield --> Scoreboard : utiliza
-
-
-' ======================== CONTROL ========================
 
 package "Control" {
 
-    class BattleController {
-        - battlefield: Battlefield
-        - combatManager: CombatManager
-        - hilos: List<MutantThread>
+    class ControladorBatalla {
+        - campoBatalla: CampoBatalla
+        - administradorCombate: AdministradorCombate
+        - hiloMutante: List<HiloMutante>
 
+        + ControladorBatalla(campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)
         + iniciarJuego(cantidad: int): void
         + generarEquipos(cantidad: int): void
         + iniciarMovimiento(): void
@@ -399,39 +494,39 @@ package "Control" {
         + nuevaBatalla(): void
     }
 
-    class MutantThread {
+    class HiloMutante {
         - mutante: Mutante
-        - battlefield: Battlefield
-        - combatManager: CombatManager
+        - campoBatalla: CampoBatalla
+        - administradorCombate: AdministradorCombate
 
-        + run(): void
-        + detectarEnemigos(): void
+        + HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)
+        + correr(): void
+        + detener(): void
+        + detectarEnemigos(): List<Mutante>
     }
 
-    class CombatManager {
+    class AdministradorCombate {
         - radioEncuentro: double
 
+        + AdministradorCombate(radioEncuentro: double)
         + detectarEncuentro(mutante1: Mutante, mutante2: Mutante): boolean
         + ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void
-        + decidirAtaqueDefensa(mutante: Mutante): boolean
-        + calcularDanio(atacante: Mutante, defensor: Mutante): double
+        + decidirDefensa(): boolean
+        + calcularDanio(atacante: Mutante, defensor: Mutante, defiende: boolean): double
         + aplicarDanio(defensor: Mutante, danio: double): void
         + aumentarDanioPoder(atacante: Mutante): void
     }
+
+    ControladorBatalla --> CampoBatalla
+    ControladorBatalla --> AdministradorCombate
+    ControladorBatalla "1" o-- "0..*" HiloMutante
+
+    HiloMutante --> Mutante
+    HiloMutante --> CampoBatalla
+    HiloMutante --> AdministradorCombate
+
+    AdministradorCombate --> Mutante
 }
-
-BattleController --> Battlefield
-BattleController --> CombatManager
-BattleController --> MutantThread
-
-MutantThread --> Mutante
-MutantThread --> Battlefield
-MutantThread --> CombatManager
-
-CombatManager --> Mutante
-
-
-' =========================== UI ===========================
 
 package "UI" {
 
@@ -439,9 +534,10 @@ package "UI" {
         + actualizar(): void
     }
 
-    class BattlefieldView {
-        - battlefield: Battlefield
+    class VerCampoBatalla {
+        - campoBatalla: CampoBatalla
 
+        + VerCampoBatalla(campoBatalla: CampoBatalla)
         + mostrarCampo(): void
         + dibujarMutantes(): void
         + mostrarMarcador(): void
@@ -449,52 +545,36 @@ package "UI" {
         + actualizar(): void
     }
 
-    class BattleControllerUI {
-        - battleController: BattleController
-        - battlefieldView: BattlefieldView
+    class BatallaUI {
+        - controladorBatalla: ControladorBatalla
+        - verCampoBatalla: VerCampoBatalla
 
+        + BatallaUI(controladorBatalla: ControladorBatalla, verCampoBatalla: VerCampoBatalla)
         + recibirCantidadEquipo(): int
         + iniciarBatalla(): void
         + nuevaBatalla(): void
     }
 
-    class BattleWindow {
-        - view: BattlefieldView
-        - controllerUI: BattleControllerUI
+    Observer <|.. VerCampoBatalla
 
-        + iniciar(): void
-    }
+    VerCampoBatalla --> CampoBatalla
+    BatallaUI --> ControladorBatalla
+    BatallaUI --> VerCampoBatalla
 }
 
-BattlefieldView ..|> Observer
-BattlefieldView --> Battlefield
-BattleControllerUI --> BattleController
-BattleControllerUI --> BattlefieldView
-BattleWindow --> BattlefieldView
-BattleWindow --> BattleControllerUI
-
-
-' ======================== CONSTANTS ========================
-
-package "Constants" {
-
-    class Constants {
-        {static} + INITIAL_ENERGY: double
-        {static} + MIN_DEFENSE: int
-        {static} + MAX_DEFENSE: int
-        {static} + MIN_DAMAGE: int
-        {static} + INITIAL_MAX_DAMAGE: int
-        {static} + MAX_DAMAGE: int
-        {static} + MIN_TEAM_SIZE: int
-        {static} + MAX_TEAM_SIZE: int
-        {static} + ENCOUNTER_RADIUS: double
-        {static} + BATTLEFIELD_WIDTH: int
-        {static} + BATTLEFIELD_HEIGHT: int
-        {static} + UI_REFRESH_RATE: int
-    }
+class Constantes <<utility>> {
+    {static} + INICIAL_ENERGIA: int
+    {static} + MIN_TAMANO_EQUIPO: int
+    {static} + MAX_TAMANO_EQUIPO: int
+    {static} + MIN_DEFENSA: int
+    {static} + MAX_DEFENSA: int
+    {static} + MIN_PODER_DANIO: int
+    {static} + MAX_PODER_DANIO: int
+    {static} + DANIO_AUMENTA: int
+    {static} + MISMA_VELOCIDAD: double
+    {static} + ENCUENTRO_RADIO: double
+    {static} + ALTO_CAMPOBATALLA: int
+    {static} + ANCHO_CAMPOBATALLA: int
 }
 
 @enduml
-```
-
-
