@@ -19,15 +19,15 @@ Representa la información general
 ### Persona
 
 - `nombre: String`
-- `edad: int`
+- `edad: byte`
 
 **Metodos**
 
-- `Persona(nombre: String, edad: int)`
+- `Persona(nombre: String, edad: byte)`
 - `getNombre(): String`
 - `setNombre(nombre: String): void`
-- `getEdad(): int`
-- `setEdad(edad: int): void`
+- `getEdad(): byte`
+- `setEdad(edad: byte): void`
 
 ---
 
@@ -43,7 +43,7 @@ Hereda de `Persona` y representa a un personaje de la batalla.
 
 **Metodos**
 
-- `Mutante(nombre: String, edad: int, energia: double, defensa: int, posicionX: double, posicionY: double, poder: IPower)`
+- `Mutante(nombre: String, edad: byte, energia: double, defensa: int, posicionX: double, posicionY: double, poder: IPower)`
 - `getEnergia(): double`
 - `setEnergia(energia: double): void`
 - `getDefensa(): int`
