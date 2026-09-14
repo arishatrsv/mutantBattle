@@ -1,15 +1,17 @@
 package poderes;
 
-public class PowerRegeneracion implements IPower {
+import constantes.IConstants;
+
+public class PoderHielo implements IPower {
     private int danio;
 
-    public PowerRegeneracion(int pDanio){
+    public PoderHielo(int pDanio){
         this.danio = pDanio;
     }
 
     @Override
     public void dispararPoder(){
-        System.out.println("Utiliza regeneración");
+        System.out.println("Dispara hielooo");
     }
 
     @Override 
@@ -19,6 +21,8 @@ public class PowerRegeneracion implements IPower {
 
     @Override 
     public void aumentarDanio(){
-        this.danio ++;
+        if(this.danio < 7){
+            this.danio += IConstants.DANIO_AUMENTA;
+        }
     }
 }

@@ -1,15 +1,17 @@
 package poderes;
 
-public class PowerFuego implements IPower {
+import constantes.IConstants;
+
+public class PoderRayos implements IPower {
     private int danio;
 
-    public PowerFuego(int pDanio){
+    public PoderRayos(int pDanio){
         this.danio = pDanio;
     }
 
     @Override
     public void dispararPoder(){
-        System.out.println("Dispara Fuego");
+        System.out.println("Dispara rayoss");
     }
 
     @Override 
@@ -19,6 +21,8 @@ public class PowerFuego implements IPower {
 
     @Override 
     public void aumentarDanio(){
-        this.danio ++;
+        if(this.danio < 7){
+            this.danio += IConstants.DANIO_AUMENTA;
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 package modelo;
 import poderes.*;
+import constantes.IConstants;
 
 public class Mutante extends Persona{
     private double energia;
@@ -12,8 +13,8 @@ public class Mutante extends Persona{
 
     //Constructor con parámetros
     public Mutante(String pNombre, byte pEdad, double pEnergia, int pDefensa,
-                   int pPosicionX, int pPosicionY, IPower pPoder) {
-        super(pNombre, (byte) pEdad);
+                    int pPosicionX, int pPosicionY, IPower pPoder) {
+        super(pNombre, pEdad); //pEdad ya es byte
         this.energia = pEnergia;
         this.defensa = pDefensa;
         this.posicionX = pPosicionX;
@@ -75,6 +76,21 @@ public class Mutante extends Persona{
     }
 
     public void mover(int pAncho, int pAlto){ // Mueve al mutante dentro de los límites del campo de batalla
-        //falta
+        int movimientoX=(int)(Math.random()*(IConstants.MISMA_VELOCIDAD*2+1))-(int)IConstants.MISMA_VELOCIDAD;//genera un movimiento aleatorio para X
+        int movimientoY=(int)(Math.random()*(IConstants.MISMA_VELOCIDAD*2+1))-(int)IConstants.MISMA_VELOCIDAD;//genera un movimiento aleatorio para Y
+        this.posicionX+=movimientoX;
+        this.posicionY+=movimientoY;
+        if (this.posicionX<0) { //comprueba los limites
+            this.posicionX=0; //si se paso del borde izquierdo, vuelve a 0
+        }
+        if (this.posicionY<0) {
+            this.posicionY=0;
+        }
+        if (this.posicionX>pAncho) {
+            this.posicionX=pAncho; //si se pasó del borde derecho, vuelve al máximo permitido
+        }
+        if (this.posicionY>pAlto) {
+            this.posicionY=pAlto;
+        }
     }
 }

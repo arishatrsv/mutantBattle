@@ -7,7 +7,6 @@
 
 package modelo;
 
-import poderes.IPower;
 
 public class Persona{
     private byte edad; // cuando no se especifica la visibilidad, el default es protected

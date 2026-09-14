@@ -1,9 +1,11 @@
 package poderes;
 
-public class PowerTelepatia implements IPower {
+import constantes.IConstants;
+
+public class PoderTelepatia implements IPower {
     private int danio;
 
-    public PowerTelepatia(int pDanio){
+    public PoderTelepatia(int pDanio){
         this.danio = pDanio;
     }
 
@@ -19,6 +21,8 @@ public class PowerTelepatia implements IPower {
 
     @Override 
     public void aumentarDanio(){
-        this.danio ++;
+        if(this.danio < 7){
+            this.danio += IConstants.DANIO_AUMENTA;
+        }
     }
 }
