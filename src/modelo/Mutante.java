@@ -1,7 +1,6 @@
 //Desarrollado por:Hilary Aguilar y Arina Tarasova
 
 package modelo;
-import poderes.*;
 import constantes.IConstants;
 
 public class Mutante extends Persona{

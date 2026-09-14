@@ -1,4 +1,4 @@
-package poderes;
+package modelo;
 
 public interface IPower {
     void dispararPoder(); //ejecuta poder

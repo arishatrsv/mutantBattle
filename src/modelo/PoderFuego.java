@@ -1,17 +1,17 @@
-package poderes;
+package modelo;
 
 import constantes.IConstants;
 
-public class PoderTelepatia implements IPower {
+public class PoderFuego implements IPower {
     private int danio;
 
-    public PoderTelepatia(int pDanio){
+    public PoderFuego(int pDanio){
         this.danio = pDanio;
     }
 
     @Override
     public void dispararPoder(){
-        System.out.println("Utiliza telepatía");
+        System.out.println("Dispara Fuego");
     }
 
     @Override 

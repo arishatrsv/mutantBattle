@@ -1,17 +1,17 @@
-package poderes;
+package modelo;
 
 import constantes.IConstants;
 
-public class PoderRayos implements IPower {
+public class PoderHielo implements IPower {
     private int danio;
 
-    public PoderRayos(int pDanio){
+    public PoderHielo(int pDanio){
         this.danio = pDanio;
     }
 
     @Override
     public void dispararPoder(){
-        System.out.println("Dispara rayoss");
+        System.out.println("Dispara hielooo");
     }
 
     @Override 
