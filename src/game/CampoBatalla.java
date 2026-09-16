@@ -1,6 +1,7 @@
 package game;
 
 import constantes.IConstants;
+import modelo.*;
 
 public class CampoBatalla {
     private Equipo equipo1;
@@ -19,7 +20,50 @@ public class CampoBatalla {
         }
         this.equipo1=new Equipo("Rojo", "R");
         this.equipo2=new Equipo("Azul", "A");
+        for(int i=0;i<pCantidad;i++){ //agrega un mutante aleatorio a cada equipo
+            this.equipo1.agregarMutante(crearMutante("Rojo"+(i+1)));
+            this.equipo2.agregarMutante(crearMutante("Azul"+(i+1)));
+        }
+        this.marcador.actualizar(this.equipo1,this.equipo2);//actualiza las estadísticas iniciales
     }
+
+    private Mutante crearMutante(String pNombre){ //crea un mutante con valores aleatorios
+    byte edad = (byte)(IConstants.MIN_EDAD + Math.random() * (IConstants.MAX_EDAD - IConstants.MIN_EDAD + 1));    int defensa=(int)(Math.random()*
+            (IConstants.MAX_DEFENSA-IConstants.MIN_DEFENSA+1))
+            +IConstants.MIN_DEFENSA;
+    int posicionX=(int)(Math.random()*IConstants.ANCHO_CAMPOBATALLA);
+    int posicionY=(int)(Math.random()*IConstants.ALTO_CAMPOBATALLA);
+
+    int danio=(int)(Math.random()*
+            (IConstants.MAX_PODER_DANIO-IConstants.MIN_PODER_DANIO+1))
+            +IConstants.MIN_PODER_DANIO;
+    IPower poder;
+    int tipoPoder=(int)(Math.random()*IConstants.CANTIDAD_PODERES); //selecciona aleatoriamente uno de los cinco poderes
+    if(tipoPoder==0){
+        poder=new PoderHielo(danio);
+    }
+    else if(tipoPoder==1){
+        poder=new PoderRayos(danio);
+    }
+    else if(tipoPoder==2){
+        poder=new PoderTelepatia(danio);
+    }
+    else if(tipoPoder==3){
+        poder=new PoderFuego(danio);
+    }
+    else{
+        poder=new PoderRegeneracion(danio);
+    }
+    return new Mutante( //crea el mutante con los valores generados
+            pNombre,
+            edad,
+            IConstants.INICIAL_ENERGIA,
+            defensa,
+            posicionX,
+            posicionY,
+            poder
+    );
+}
 
     public Equipo getEquipo1(){ //devuelve el equipo 1
         return this.equipo1;

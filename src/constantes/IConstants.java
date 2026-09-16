@@ -9,6 +9,9 @@ public interface IConstants {
     int MIN_PODER_DANIO = 1;
     int MAX_PODER_DANIO = 3;
     int DANIO_AUMENTA = 1;
+    int CANTIDAD_PODERES = 5;
+    int MIN_EDAD = 18;
+    int MAX_EDAD = 60;
     double MISMA_VELOCIDAD = 5.0; //revisar valor
     double ENCUENTRO_RADIO = 30.0;//revisar valor
     int ALTO_CAMPOBATALLA = 600;//revisar valor
