@@ -34,16 +34,25 @@ public class AdministradorCombate {
         pAtacante.getPoder().aumentarDanio();
     }
 
-    public void ejecutarEncuentro(Mutante pAtacante, Mutante pDefensor){ //ejecuta un ataque entre dos mutantes
-        if(!pAtacante.estaVivo() || !pDefensor.estaVivo()){
+    public void ejecutarEncuentro(Mutante pMutante1, Mutante pMutante2){ //ejecuta un ataque entre dos mutantes
+        if(!pMutante1.estaVivo() || !pMutante2.estaVivo()){
             return; //no ejecuta el encuentro si alguno ya está muerto
         }
-        boolean seDefiende = decidirDefensa(); //el defensor decide si se defiende
-        double energiaAntes = pDefensor.getEnergia(); //guarda la energía antes del ataque
-        double danio = calcularDanio(pAtacante, pDefensor, seDefiende); //calcula el daño
-        aplicarDanio(pDefensor, danio); //aplica el daño al defensor
+        boolean mutante1Defiende = decidirDefensa();
+        boolean mutante2Defiende = decidirDefensa();
+        if(!mutante1Defiende){
+            atacar(pMutante1, pMutante2, mutante2Defiende);
+        }
+        if(!mutante2Defiende && pMutante1.estaVivo()){
+            atacar(pMutante2, pMutante1, mutante1Defiende);
+        }
+    }
+    private void atacar(Mutante pAtacante, Mutante pDefensor, boolean pDefiende){
+        double energiaAntes = pDefensor.getEnergia();
+        double danio = calcularDanio(pAtacante, pDefensor, pDefiende);
+        aplicarDanio(pDefensor, danio);
         if(pDefensor.getEnergia() < energiaAntes){
-            aumentarDanioPoder(pAtacante); //aumenta el poder si el ataque redujo la energía
+            aumentarDanioPoder(pAtacante);
         }
     }
 }
