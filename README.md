@@ -43,7 +43,7 @@ Hereda de `Persona` y representa a un personaje de la batalla.
 
 **Metodos**
 
-- `Mutante(nombre: String, edad: byte, energia: double, defensa: int, posicionX: double, posicionY: double, poder: IPower)`
+- `Mutante(nombre: String, edad: byte, energia: double, defensa: int, posicionX: int, posicionY: int, poder: IPower)`
 - `getEnergia(): double`
 - `setEnergia(energia: double): void`
 - `getDefensa(): int`
