@@ -5,7 +5,6 @@ import game.Equipo;
 import modelo.Mutante;
 import java.util.ArrayList;
 import java.util.List;
-
 import constantes.IConstants;
 
 public class HiloMutante extends Thread {
@@ -47,19 +46,16 @@ public class HiloMutante extends Thread {
 
     public List<Mutante> detectarEnemigos(){ //busca enemigos dentro del radio de encuentro
         List<Mutante> enemigos = new ArrayList<>();
-        Equipo equipo1 = this.campoBatalla.getEquipo1();
-        Equipo equipo2 = this.campoBatalla.getEquipo2();
-        if(equipo1.getMutantes().contains(this.mutante)){
-            for(Mutante enemigo : equipo2.getMutantes()){
-                if(this.administradorCombate.detectarEncuentro(this.mutante, enemigo)){
-                    enemigos.add(enemigo);
-                }
-            }
+        Equipo equipoEnemigo;
+        if(this.campoBatalla.getEquipo1().getMutantes().contains(this.mutante)){
+            equipoEnemigo= this.campoBatalla.getEquipo2();
         }else{
-            for(Mutante enemigo : equipo1.getMutantes()){
-                if(enemigo.estaVivo() && this.mutante.getNombre().compareTo(enemigo.getNombre()) < 0){
-                    this.administradorCombate.ejecutarEncuentro(this.mutante, enemigo);
-                }
+            equipoEnemigo= this.campoBatalla.getEquipo1();
+        }    
+        for(Mutante enemigo : equipoEnemigo.getMutantes()){
+            if (enemigo.estaVivo() && this.administradorCombate.detectarEncuentro(
+                this.mutante,enemigo)) {
+                enemigos.add(enemigo);   
             }
         }
         return enemigos;
