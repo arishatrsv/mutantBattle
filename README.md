@@ -48,10 +48,10 @@ Hereda de `Persona` y representa a un personaje de la batalla.
 - `setEnergia(energia: double): void`
 - `getDefensa(): int`
 - `setDefensa(defensa: int): void`
-- `getPosicionX(): double`
-- `setPosicionX(posicionX: double): void`
-- `getPosicionY(): double`
-- `setPosicionY(posicionY: double): void`
+- `getPosicionX(): int`
+- `setPosicionX(posicionX: int): void`
+- `getPosicionY(): int`
+- `setPosicionY(posicionY: int): void`
 - `getPoder(): IPower`
 - `setPoder(poder: IPower): void`
 - `estaVivo(): boolean`
