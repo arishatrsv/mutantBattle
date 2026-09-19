@@ -21,7 +21,7 @@ public class PoderHielo implements IPower {
 
     @Override 
     public void aumentarDanio(){
-        if(this.danio < 7){
+        if(this.danio < IConstants.MAX_DANIO_PODER){
             this.danio += IConstants.DANIO_AUMENTA;
         }
     }

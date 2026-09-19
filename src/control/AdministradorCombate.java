@@ -18,7 +18,7 @@ public class AdministradorCombate {
         return distancia <= this.radioEncuentro; //indica si están dentro del radio de encuentro
     }
     public boolean decidirDefensa(){ //decide aleatoriamente si el mutante se defiende
-        return Math.random() < 0.5; //true significa que se defiende, 0,5 para que sea 50% probabilidad
+        return Math.random() < IConstants.PROBABILIDAD_DEFENSA; //true significa que se defiende, 0,5 para que sea 50% probabilidad
     }
     public double calcularDanio(Mutante pAtacante, Mutante pDefensor, boolean pDefiende){ //calcula el daño que recibe el defensor
         int danio = pAtacante.getPoder().getDanio();
@@ -30,7 +30,7 @@ public class AdministradorCombate {
     public void aplicarDanio(Mutante pDefensor, double pDanio){ //aplica el daño al defensor
         pDefensor.recibirDanio(pDanio);
     }
-    public void aumentarDanioPoder(Mutante pAtacante){ //aumenta el daño del poder del atacante
+    public void aumentarDanioPoder(Mutante pAtacante){ //aumenta el daño del poder 
         pAtacante.getPoder().aumentarDanio();
     }
 

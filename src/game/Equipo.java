@@ -16,6 +16,10 @@ public class Equipo {
         this.mutantes = new ArrayList<>(); //crea la lista
     }
 
+    public String getColor(){
+        return this.color;
+    }
+
     public void agregarMutante(Mutante pMutante){ //agrega un mutante al equipo
         this.mutantes.add(pMutante);
     }
@@ -31,7 +35,6 @@ public class Equipo {
                 vivos++;
             }
         }
-
         return vivos;
     }
 
@@ -42,7 +45,6 @@ public class Equipo {
                 muertos++;
             }
         }
-
         return muertos;
     }
 

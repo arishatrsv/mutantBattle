@@ -60,7 +60,7 @@ public class ControladorBatalla{
         Equipo ganador= this.campoBatalla.obtenerGanador();
         if (ganador != null){
             System.out.println("La batalla ha terminado");
-            System.out.println("El equipo ganador es: "+ ganador); //falta para que muestre el equipo
+            System.out.println("El equipo ganador es: "+ ganador.getColor()); 
         }
     }
     public void nuevaBatalla(){

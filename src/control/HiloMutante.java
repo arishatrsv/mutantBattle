@@ -12,6 +12,7 @@ public class HiloMutante extends Thread {
     private CampoBatalla campoBatalla;
     private AdministradorCombate administradorCombate;
     private boolean activo;
+    private List<Mutante> enemigosAnteriores;  // Guarda los enemigos que estaban dentro del radio en la iteración anterior
 
     public HiloMutante( //constructor
             Mutante pMutante,
@@ -21,6 +22,7 @@ public class HiloMutante extends Thread {
         this.campoBatalla = pCampoBatalla;
         this.administradorCombate = pAdministradorCombate;
         this.activo = true;
+        this.enemigosAnteriores= new ArrayList<>();
     }
 
     @Override
@@ -30,13 +32,18 @@ public class HiloMutante extends Thread {
 
     public void correr(){ //controla el movimiento y los encuentros
         while(this.activo && this.mutante.estaVivo() && !this.campoBatalla.batallaTerminada()){
-            this.mutante.mover(IConstants.ANCHO_CAMPOBATALLA,IConstants.ALTO_CAMPOBATALLA);
-            List<Mutante> enemigos = detectarEnemigos();
-            for(Mutante enemigo : enemigos){
-                if(enemigo.estaVivo()){
+            this.mutante.mover(IConstants.ANCHO_CAMPOBATALLA,IConstants.ALTO_CAMPOBATALLA); //Mueve al mutante
+            List<Mutante> enemigos = detectarEnemigos(); //detecta enemigos dentro del radio
+            for(Mutante enemigo : enemigos){ //Busca enemigos dentro del radio
+                // El encuentro ocurre solamente cuando entra al radio y no estaba dentro anteriormente
+                if(!this.enemigosAnteriores.contains(enemigo)&&
+                    enemigo.estaVivo()&& esResponsableDelEncuentro(enemigo)){ 
                     this.administradorCombate.ejecutarEncuentro(this.mutante, enemigo);
+                    this.campoBatalla.getMarcador().actualizar(
+                        this.campoBatalla.getEquipo1(), this.campoBatalla.getEquipo2());
                 }
             }
+            this.enemigosAnteriores = enemigosActuales; // Guarda los enemigos que están actualmente cerca
         }
     }
 
@@ -59,5 +66,8 @@ public class HiloMutante extends Thread {
             }
         }
         return enemigos;
+    }
+    private boolean esResponsableDelEncuentro(Mutante pEnemigo) {
+        return this.mutante.getNombre().compareTo(pEnemigo.getNombre()) < 0;
     }
 }
