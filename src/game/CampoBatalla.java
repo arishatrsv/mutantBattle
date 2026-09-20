@@ -14,7 +14,7 @@ public class CampoBatalla {
     }
 
     public void crearEquipos(int pCantidad){ //crea los dos equipos con la cantidad indicada
-        if(pCantidad<IConstants.MIN_TAMANO_EQUIPO||pCantidad>IConstants.MAX_TAMANO_EQUIPO){
+        if(pCantidad< IConstants.MIN_TAMANO_EQUIPO||pCantidad> IConstants.MAX_TAMANO_EQUIPO){
             //comprueba que la cantidad esté entre 3 y 11
             return;
         }
