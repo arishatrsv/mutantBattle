@@ -38,7 +38,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
                 int x= mutante.getPosicionX();
                 int y= mutante.getPosicionY();
 
-                graphics.fillOval(x,y,20,20);
+                graphics.fillOval(x,y,40,40);
                 graphics.setColor(Color.BLACK);
                 graphics.drawString(String.valueOf((int)mutante.getEnergia()), x, y - 5);
                 graphics.setColor(pColor);
@@ -51,7 +51,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
         graphics.drawString("Equipo 1 - Vivos: " + this.campoBatalla.getMarcador().getVivosEquipo1()
             + "Muertos: " + this.campoBatalla.getMarcador().getMuertosEquipo1(),20,20 );
         graphics.drawString("Equipo 2 - Vivos: " + this.campoBatalla.getMarcador().getVivosEquipo2()
-            + "Muertos: " + this.campoBatalla.getMarcador().getMuertosEquipo2(),20,20 );
+            + "Muertos: " + this.campoBatalla.getMarcador().getMuertosEquipo2(),250,20 );
         
         if (this.campoBatalla.batallaTerminada()){
             Equipo ganador= this.campoBatalla.obtenerGanador();
@@ -68,5 +68,13 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
 
     public CampoBatalla getCampoBatalla(){
         return this.campoBatalla;
+    }
+
+    public int getAncho(){
+        return this.getWidth();
+    }
+
+    public int getAlto(){
+        return this.getHeight();
     }
 }

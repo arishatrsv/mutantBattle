@@ -11,6 +11,6 @@ public class MainUI {
         ControladorBatalla controladorBatalla = new ControladorBatalla(
             campoBatalla, administradorCombate);
         BatallaUI interfaz = new BatallaUI(campoBatalla, controladorBatalla);
-        interfaz.iniciarBatalla(5);
+        interfaz.iniciarBatalla();
     }
 }

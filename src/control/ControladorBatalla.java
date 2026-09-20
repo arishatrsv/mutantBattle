@@ -67,4 +67,8 @@ public class ControladorBatalla{
         this.hiloMutante.clear();
         this.campoBatalla= new CampoBatalla();
     }
+
+    public CampoBatalla getCampoBatalla(){
+        return campoBatalla;
+    }
 }

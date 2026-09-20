@@ -9,6 +9,8 @@ public class Mutante extends Persona{
     private int posicionX;
     private int posicionY;
     private IPower poder;
+    private int direccionX;
+    private int direccionY;
 
     //Constructor con parámetros
     public Mutante(String pNombre, byte pEdad, double pEnergia, int pDefensa,
@@ -19,7 +21,8 @@ public class Mutante extends Persona{
         this.posicionX = pPosicionX;
         this.posicionY = pPosicionY;
         this.poder = pPoder;
-    }
+        this.direccionX = obtenerDireccion();
+        this.direccionY = obtenerDireccion();    }
 
     // métodos get para leer los valores de los atributos de la instancia
     public double getEnergia(){
@@ -74,22 +77,36 @@ public class Mutante extends Persona{
         }
     }
 
-    public void mover(int pAncho, int pAlto){ // Mueve al mutante dentro de los límites del campo de batalla
-        int movimientoX=(int)(Math.random()*(IConstants.MISMA_VELOCIDAD*2+1))-(int)IConstants.MISMA_VELOCIDAD;//genera un movimiento aleatorio para X
-        int movimientoY=(int)(Math.random()*(IConstants.MISMA_VELOCIDAD*2+1))-(int)IConstants.MISMA_VELOCIDAD;//genera un movimiento aleatorio para Y
-        this.posicionX+=movimientoX;
-        this.posicionY+=movimientoY;
-        if (this.posicionX<0) { //comprueba los limites
-            this.posicionX=0; //si se paso del borde izquierdo, vuelve a 0
+    public void mover(int pAncho, int pAlto){
+        int limiteDerecho = pAncho;
+        int limiteInferior = pAlto;
+        this.posicionX += this.direccionX * IConstants.MISMA_VELOCIDAD;
+        this.posicionY += this.direccionY * IConstants.MISMA_VELOCIDAD;
+        if(this.posicionX <= 0 || this.posicionX >= limiteDerecho){
+            this.direccionX *= -1;
         }
-        if (this.posicionY<0) {
-            this.posicionY=0;
+        if(this.posicionY <= IConstants.ALTO_ESTADISTICAS || this.posicionY >= limiteInferior){
+            this.direccionY *= -1;
         }
-        if (this.posicionX>pAncho) {
-            this.posicionX=pAncho; //si se pasó del borde derecho, vuelve al máximo permitido
+        if(this.posicionX < 0){
+            this.posicionX = 0;
         }
-        if (this.posicionY>pAlto) {
-            this.posicionY=pAlto;
+        if(this.posicionX > limiteDerecho){
+            this.posicionX = limiteDerecho;
         }
+        if(this.posicionY < IConstants.ALTO_ESTADISTICAS){
+            this.posicionY = IConstants.ALTO_ESTADISTICAS;
+        }
+        if(this.posicionY > limiteInferior){
+            this.posicionY = limiteInferior;
+        }
+    }
+
+    private int obtenerDireccion(){
+        int direccion = 0;
+        while(direccion == 0){
+            direccion = (int)(Math.random() * 3) - 1;
+        }
+        return direccion;
     }
 }

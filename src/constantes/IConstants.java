@@ -14,13 +14,16 @@ public interface IConstants {
     int CANTIDAD_PODERES = 5;
     int MIN_EDAD = 18;
     int MAX_EDAD = 60;
-    int MISMA_VELOCIDAD = 5; //revisar valor
+    int MISMA_VELOCIDAD = 6; //revisar valor
     double ENCUENTRO_RADIO = 30.0;//revisar valor
-    int ALTO_CAMPOBATALLA = 600;
-    int ANCHO_CAMPOBATALLA = 1000;
+    int ALTO_VENTANA=600;
+    int ANCHO_VENTANA=1000;
+    int ALTO_CAMPOBATALLA = 450;
+    int ANCHO_CAMPOBATALLA = 800;
     int VIVOS_EQUIPO1 = 0;//revisar valor
     int MUERTOS_EQUIPO1 = 1;//revisar valor
     int VIVOS_EQUIPO2 = 2;//revisar valor
     int MUERTOS_EQUIPO2 = 3;//revisar valor
     int ACTUALIZACION_UI = 50; //la interfaz se actualiza cada 50 milisegundos.
+    int ALTO_ESTADISTICAS=70;
 }

@@ -18,8 +18,8 @@ public class CampoBatalla {
             //comprueba que la cantidad esté entre 3 y 11
             return;
         }
-        this.equipo1=new Equipo("Rojo", "R");
-        this.equipo2=new Equipo("Azul", "A");
+        this.equipo1=new Equipo("Rojo", null);
+        this.equipo2=new Equipo("Azul", null);
         for(int i=0;i<pCantidad;i++){ //agrega un mutante aleatorio a cada equipo
             this.equipo1.agregarMutante(crearMutante("Rojo"+(i+1)));
             this.equipo2.agregarMutante(crearMutante("Azul"+(i+1)));
@@ -78,6 +78,9 @@ public class CampoBatalla {
     }
 
     public boolean batallaTerminada(){ //indica si uno de los equipos fue eliminado
+        if(equipo1 == null || equipo2 == null){
+            return false;
+        }
         return this.equipo1.estaEliminado()||this.equipo2.estaEliminado(); //equipo 1 OR equipo 2 esta eliminado
     }
 
