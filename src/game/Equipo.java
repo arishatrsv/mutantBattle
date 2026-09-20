@@ -3,14 +3,15 @@ package game;
 import modelo.Mutante;
 import java.util.List;
 import java.util.ArrayList;//para crear lista
+import java.awt.Image;
 
 public class Equipo {
     private String color;
-    private String simbolo; //luego hay que cambiarlo a imagen
+    private Image simbolo; 
     private List<Mutante> mutantes;//solamente puede contener objetos de tipo Mutante
 
     //constructor
-    public Equipo(String pColor, String pSimbolo){
+    public Equipo(String pColor, Image pSimbolo){
         this.color = pColor;
         this.simbolo = pSimbolo;
         this.mutantes = new ArrayList<>(); //crea la lista
