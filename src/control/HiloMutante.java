@@ -40,6 +40,12 @@ public class HiloMutante extends Thread {
                         this.campoBatalla.getEquipo1(), this.campoBatalla.getEquipo2());
                 }
             }
+            try{
+                Thread.sleep(IConstants.ACTUALIZACION_UI);
+            } catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+                this.activo = false;
+            }
         }
     }
 
