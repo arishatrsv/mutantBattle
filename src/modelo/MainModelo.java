@@ -12,7 +12,7 @@ public class MainModelo {
         System.out.println("Daño después de aumentar: "+ poder.getDanio());
 
         Mutante mutante = new Mutante("Mutante Prueba", //Crear un mutante
-          (byte) 20, 100, 2, 100, 100, poder);
+            (byte) 20, 100, 2, 100, 100, poder);
 
         System.out.println("\n--- Datos del mutante ---");
         System.out.println("Nombre: " + mutante.getNombre());
@@ -30,7 +30,7 @@ public class MainModelo {
         System.out.println("Posición después de mover: (" +
                 mutante.getPosicionX() + ", " + mutante.getPosicionY() + ")");
 
-          
+        
         System.out.println("\n--- Daño ---"); // Probar daño
         mutante.recibirDanio(20);
         System.out.println("Energía después de recibir 20 de daño: " + mutante.getEnergia());
