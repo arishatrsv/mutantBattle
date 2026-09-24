@@ -27,8 +27,16 @@ public class BatallaUI extends JFrame{
         this.setSize(IConstants.ANCHO_VENTANA,IConstants.ALTO_VENTANA); //tamaño de la ventana
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //cerrar la app cuando termine
         this.add(this.vista); //agrega el panel principal a la ventana
-        this.botonNuevaBatalla = new JButton("Iniciar nueva batalla");//crea el botón
+        
+        this.botonNuevaBatalla = new JButton("INICIAR NUEVA BATALLA");
+        this.botonNuevaBatalla.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 15));
+        this.botonNuevaBatalla.setForeground(java.awt.Color.WHITE);
+        this.botonNuevaBatalla.setBackground(new java.awt.Color(35, 35, 40));
+        this.botonNuevaBatalla.setFocusPainted(false);
+        this.botonNuevaBatalla.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 25, 10, 25));
+        this.botonNuevaBatalla.setOpaque(true);
         this.botonNuevaBatalla.setVisible(false);//hace que al principio no se vea el boton
+        
         this.botonNuevaBatalla.addActionListener(e -> iniciarNuevaBatalla()); //cuando presione el botón, ejecutar iniciarNuevaBatalla
         this.add(this.botonNuevaBatalla, BorderLayout.SOUTH); //lo coloca abajo de la ventana
         this.temporizador = new Timer(IConstants.ACTUALIZACION_UI, e-> this.actualizar()); //actualiza la vista cada 50 ms

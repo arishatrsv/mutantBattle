@@ -46,17 +46,44 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
                 int y= mutante.getPosicionY(); //obtiene la coordenada vertical
                 int tamano = IConstants.TAMANO_MUTANTE; //tamaño del círculo visual
 
-                graphics.setColor(pColor); //elige el color del equipo
-                graphics.fillOval(x,y,tamano,tamano); //dibuja el mutante vivo como un óvalo
-                graphics.setFont(new Font("Arial",Font.BOLD,12)); //fuerza una fuente compacta para la energía
-                graphics.drawString(String.valueOf((int)mutante.getEnergia()), x + 8, y - 5); //muestra la energía encima del mutante
-                graphics.setColor(pColor); //mantiene el color para otros elementos del mismo equipo
+            //dibuja el mutante
+            graphics.setColor(pColor);
+            graphics.fillOval(x, y, tamano, tamano);
+
+            //dibuja el borde
+            graphics.setColor(Color.DARK_GRAY);
+            graphics.drawOval(x, y, tamano, tamano);
+
+            //dibuja la energía
+            graphics.setFont(new Font("Arial", Font.BOLD, 12));
+            graphics.setColor(Color.WHITE);
+            graphics.drawString(String.valueOf((int)mutante.getEnergia()), x + 8, y + 22);
+
+            //dibuja la barra de energía
+            int anchoBarra = tamano;
+            int energia = (int)mutante.getEnergia();
+            int anchoEnergia = (int)(anchoBarra * energia / 100.0);
+
+            //dibuja el fondo de la barra
+            graphics.setColor(Color.DARK_GRAY);
+            graphics.fillRect(x, y + tamano + 3, anchoBarra, 5);
+
+            //cambia el color según la energía
+            if(energia >= 70){
+                graphics.setColor(Color.GREEN);
+            }else if(energia >= 30){
+                graphics.setColor(Color.YELLOW);
+            }else{
+                graphics.setColor(Color.RED);
+            }
+
+            graphics.fillRect(x, y + tamano + 3, anchoEnergia, 5);
             }
         }
     }
 
     private void dibujarBarraSuperior(Graphics graphics){ //Dibuja una barra superior para que se vea más ordenado
-        graphics.setColor(new Color(210, 214, 220)); //fondo gris para la cabecera visual
+        graphics.setColor(new Color(20, 20, 25, 180)); //fondo para la cabecera visual
         graphics.fillRect(0,0,this.getWidth(),IConstants.ALTO_ESTADISTICAS); //rellena la barra superior
         graphics.setColor(Color.DARK_GRAY); //color para la línea divisoria
         graphics.drawLine(0,IConstants.ALTO_ESTADISTICAS,this.getWidth(),IConstants.ALTO_ESTADISTICAS); //traza la separación con el campo
@@ -68,7 +95,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
         graphics.drawString("EQUIPO AZUL",this.getWidth() - 230,25); //etiqueta del equipo azul
 
         graphics.setFont(new Font("Arial", Font.PLAIN, 14));
-        graphics.setColor(Color.BLACK); //texto negro para las estadísticas
+        graphics.setColor(Color.WHITE); //texto blanco para las estadísticas
         graphics.drawString("Vivos: " +this.campoBatalla.getMarcador().getVivosEquipo1() +
             "    Muertos: " +this.campoBatalla.getMarcador().getMuertosEquipo1(),90,50); //muestra estado del equipo rojo
 
@@ -95,16 +122,17 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
         if(this.campoBatalla.batallaTerminada()){
             Equipo ganador= this.campoBatalla.obtenerGanador(); //obtiene el equipo ganador si la partida ya terminó
             if (ganador != null){
-                graphics.setColor(new Color(255, 255, 255, 220)); //fondo semi-transparente para el panel del ganador
+                graphics.setColor(new Color(20, 20, 25, 220)); //fondo semi-transparente para el panel del ganador
                 int ancho = 420; //ancho del cartel final
                 int alto = 120; //alto del cartel final
                 int x = (this.getWidth() - ancho) / 2; //centra el cartel horizontalmente
                 int y = (this.getHeight() - alto) / 2; //centra el cartel verticalmente
 
                 graphics.fillRoundRect(x, y, ancho, alto, 20, 20); //dibuja fondo redondeado del ganador
-                graphics.setColor(Color.DARK_GRAY); //color del borde del mensaje final
+                graphics.setColor(Color.WHITE); //color del borde del mensaje final
                 graphics.drawRoundRect(x, y, ancho, alto, 20, 20); //traza el borde redondeado
 
+                graphics.setColor(Color.WHITE);
                 graphics.setFont(new Font("Arial", Font.BOLD, 24));
                 graphics.drawString("BATALLA TERMINADA", x + 85, y + 40); //titulo del mensaje
                 graphics.setFont(new Font("Arial", Font.BOLD, 22));

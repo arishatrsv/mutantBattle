@@ -14,7 +14,7 @@ public interface IConstants {
     int CANTIDAD_PODERES = 5; //cantidad de tipos de poder disponibles
     int MIN_EDAD = 18; //edad mínima del mutante
     int MAX_EDAD = 60; //edad máxima del mutante
-    int MISMA_VELOCIDAD = 6; //cantidad de píxeles que avanza en cada paso
+    int MISMA_VELOCIDAD = 5; //cantidad de píxeles que avanza en cada paso
     double ENCUENTRO_RADIO = 30.0; //distancia máxima para considerar que hubo encuentro
     int ALTO_VENTANA=600; //altura total de la ventana principal
     int ANCHO_VENTANA=800; //ancho total de la ventana principal
