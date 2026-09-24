@@ -363,7 +363,7 @@ El proyecto incluye un `main` para probar cada capa de forma independiente:
 ---
 # UML
 
-<img width="2095" height="2532" alt="image" src="https://github.com/user-attachments/assets/23755df4-8d72-45fa-a1c6-f59dc5d62470" />
+<img width="3206" height="2986" alt="image" src="https://github.com/user-attachments/assets/fd16856a-7304-4ae0-822a-4bd55f6f256d" />
 
 
 ```
