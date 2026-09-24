@@ -10,17 +10,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import javax.swing.ImageIcon;//para el fondo
 
 public class VerCampoBatalla extends JPanel implements Observer{ //consulta el CampoBatalla y será la encargada de representar sus datos.
     private CampoBatalla campoBatalla; //referencia al modelo del campo que se va a dibujar
+    private Image fondo;
     public VerCampoBatalla(CampoBatalla pCampoBatalla){
         this.campoBatalla = pCampoBatalla; //guarda el campo que se mostrará en pantalla
-        this.setBackground(new Color(235, 238, 242)); //fondo claro para diferenciar el campo de batalla
+        this.fondo = new ImageIcon("imagenes/fondo.png").getImage();
     }
 
     @Override 
     protected void paintComponent(Graphics graphics){
         super.paintComponent(graphics); //llama a la pintura base del panel
+        graphics.drawImage(this.fondo, 0, 0, this.getWidth(), this.getHeight(), null);//dibuja el fondo
         if (this.campoBatalla == null){
             return; //si no hay tablero, no se dibuja nada
         }
