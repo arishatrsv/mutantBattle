@@ -15,7 +15,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
     private CampoBatalla campoBatalla; 
     public VerCampoBatalla(CampoBatalla pCampoBatalla){
         this.campoBatalla = pCampoBatalla;
-         this.setBackground(new Color(235, 238, 242));
+        this.setBackground(new Color(235, 238, 242));
     }
 
     @Override 
@@ -36,7 +36,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
         if (pEquipo == null){
             return;
         }
-  
+
         for (Mutante mutante : pEquipo.getMutantes()){
             if (mutante.estaVivo()){
                 int x= mutante.getPosicionX();

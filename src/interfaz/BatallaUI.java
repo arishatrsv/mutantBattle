@@ -61,7 +61,7 @@ public class BatallaUI extends JFrame{
             this.controlador.getCampoBatalla().getEquipo1().setSimbolo(imagenRojo);
             this.controlador.getCampoBatalla().getEquipo2().setSimbolo(imagenAzul);
 
-            this.controlador.iniciarMovimiento();
+            this.controlador.iniciarMovimiento(this.vista.getWidth(),this.vista.getHeight());
             this.controlador.controlarBatalla();
             this.controlador.finalizarJuego();
         });

@@ -78,14 +78,15 @@ public class Mutante extends Persona{
     }
 
     public void mover(int pAncho, int pAlto){
-        int limiteDerecho = pAncho;
-        int limiteInferior = pAlto;
+        int limiteDerecho = pAncho - IConstants.TAMANO_MUTANTE;
+        int limiteInferior = pAlto - IConstants.TAMANO_MUTANTE;
         this.posicionX += this.direccionX * IConstants.MISMA_VELOCIDAD;
         this.posicionY += this.direccionY * IConstants.MISMA_VELOCIDAD;
         if(this.posicionX <= 0 || this.posicionX >= limiteDerecho){
             this.direccionX *= -1;
         }
-        if(this.posicionY <= 0 || this.posicionY >= limiteInferior){
+        if(this.posicionY <= IConstants.ALTO_ESTADISTICAS
+            || this.posicionY >= limiteInferior){
             this.direccionY *= -1;
         }
         if(this.posicionX < 0){
@@ -94,8 +95,8 @@ public class Mutante extends Persona{
         if(this.posicionX > limiteDerecho){
             this.posicionX = limiteDerecho;
         }
-        if(this.posicionY < 0){
-            this.posicionY = 0;
+        if(this.posicionY < IConstants.ALTO_ESTADISTICAS){
+            this.posicionY = IConstants.ALTO_ESTADISTICAS;
         }
         if(this.posicionY > limiteInferior){
             this.posicionY = limiteInferior;

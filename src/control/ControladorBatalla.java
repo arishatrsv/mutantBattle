@@ -3,6 +3,7 @@ package control;
 import game.CampoBatalla;
 import game.Equipo;
 import modelo.Mutante;
+import constantes.IConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +23,23 @@ public class ControladorBatalla{
 
     public void iniciarJuego(int pCantidad){
         generarEquipos(pCantidad);
-        iniciarMovimiento();
+        iniciarMovimiento(IConstants.ANCHO_CAMPOBATALLA,IConstants.ALTO_CAMPOBATALLA);
         controlarBatalla();
         finalizarJuego();
     }  
     public void generarEquipos(int pCantidad){
         this.campoBatalla.crearEquipos(pCantidad);
     }
-    public void iniciarMovimiento(){
+    public void iniciarMovimiento(int pAncho,int pAlto){
         this.hiloMutante.clear();
         for (Mutante mutante: this.campoBatalla.getEquipo1().getMutantes()){
             HiloMutante hilo = new HiloMutante(mutante, 
-                this.campoBatalla, this.administradorCombate);
+                this.campoBatalla, this.administradorCombate,pAncho, pAlto);
             this.hiloMutante.add(hilo);
         }
         for (Mutante mutante: this.campoBatalla.getEquipo2().getMutantes()){
             HiloMutante hilo = new HiloMutante(mutante, 
-                this.campoBatalla, this.administradorCombate);
+                this.campoBatalla, this.administradorCombate,pAncho, pAlto);
             this.hiloMutante.add(hilo);
         }
         for (HiloMutante hilo: this.hiloMutante){

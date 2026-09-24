@@ -12,14 +12,20 @@ public class HiloMutante extends Thread {
     private CampoBatalla campoBatalla;
     private AdministradorCombate administradorCombate;
     private boolean activo; //estado del hilo
+    private int ancho;
+    private int alto;
 
     public HiloMutante( //constructor
             Mutante pMutante,
             CampoBatalla pCampoBatalla,
-            AdministradorCombate pAdministradorCombate){
+            AdministradorCombate pAdministradorCombate,
+            int pAncho,
+            int pAlto){
         this.mutante = pMutante;
         this.campoBatalla = pCampoBatalla;
         this.administradorCombate = pAdministradorCombate;
+        this.ancho = pAncho;
+        this.alto = pAlto;
         this.activo = true;
     }
 
@@ -30,7 +36,7 @@ public class HiloMutante extends Thread {
 
     public void correr(){ //controla el movimiento y los encuentros
         while(this.activo && this.mutante.estaVivo() && !this.campoBatalla.batallaTerminada()){
-            this.mutante.mover(IConstants.ANCHO_CAMPOBATALLA,IConstants.ALTO_CAMPOBATALLA); //Mueve al mutante
+            this.mutante.mover(this.ancho,this.alto); //Mueve al mutante
             List<Mutante> enemigos = detectarEnemigos(); //detecta enemigos dentro del radio
             for(Mutante enemigo : enemigos){ 
                 // Ejecuta el encuentro si el enemigo está vivo y dentro del radio
