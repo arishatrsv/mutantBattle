@@ -41,7 +41,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
             if (mutante.estaVivo()){
                 int x= mutante.getPosicionX();
                 int y= mutante.getPosicionY();
-                int tamano = 35;
+                int tamano = IConstants.TAMANO_MUTANTE;
 
                 graphics.setColor(pColor);
                 graphics.fillOval(x,y,tamano,tamano);

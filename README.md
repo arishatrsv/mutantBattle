@@ -35,17 +35,19 @@ Representa la información general
 
 Hereda de `Persona` y representa a un personaje de la batalla.
 
-- `energia: double`
+- `energia: int`
 - `defensa: int`
 - `posicionX: int`
 - `posicionY: int`
+- `direccionX: int`
+- `direccionY: int`
 - `poder: IPower`
 
 **Metodos**
 
-- `Mutante(nombre: String, edad: byte, energia: double, defensa: int, posicionX: int, posicionY: int, poder: IPower)`
-- `getEnergia(): double`
-- `setEnergia(energia: double): void`
+- `Mutante(nombre: String, edad: byte, energia: int, defensa: int, posicionX: int, posicionY: int, poder: IPower)`
+- `getEnergia(): int`
+- `setEnergia(energia: int): void`
 - `getDefensa(): int`
 - `setDefensa(defensa: int): void`
 - `getPosicionX(): int`
@@ -151,7 +153,10 @@ Hace los equipos y el Campo de Batalla
 
 **Metodos**
 
-- `Equipo(color: String, simbolo: String)`
+- `Equipo(color: String, simbolo: Image)`
+- `getColor(): String`
+- `getSimbolo(): Image`
+- `setSimbolo(simbolo: Image): void`
 - `agregarMutante(mutante: Mutante): void`
 - `getMutantes(): List<Mutante>`
 - `contarVivos(): int`
@@ -168,6 +173,7 @@ Para saber cuantos vivos y muertos hay
 
 **Metodos**
 
+- `Marcador()`
 - `actualizar(equipo1: Equipo, equipo2: Equipo): void`
 - `getVivosEquipo1(): int`
 - `getMuertosEquipo1(): int`
@@ -186,6 +192,7 @@ Hace el campo de batalla y mantiene los equipos y el marcador.
 
 **Metodos**
 
+- `CampoBatalla()`
 - `crearEquipos(cantidad: int): void`
 - `getEquipo1(): Equipo`
 - `getEquipo2(): Equipo`
@@ -210,9 +217,10 @@ Controla una partida.
 **Metodos**
 
 - `ControladorBatalla(campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)`
+- `getCampoBatalla(): CampoBatalla`
 - `iniciarJuego(cantidad: int): void`
 - `generarEquipos(cantidad: int): void`
-- `iniciarMovimiento(): void`
+- `iniciarMovimiento(ancho: int, alto: int): void`
 - `controlarBatalla(): void`
 - `finalizarJuego(): void`
 - `nuevaBatalla(): void`
@@ -228,13 +236,17 @@ Usaremos un HiloMutante para cada mutante.
 - `mutante: Mutante`
 - `campoBatalla: CampoBatalla`
 - `administradorCombate: AdministradorCombate`
+- `activo: boolean`
+- `ancho: int`
+- `alto: int`
 
 **Metodos**
 
-- `HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)`
+- `HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate, ancho: int, alto: int)`
 - `correr(): void`
 - `detener(): void`
 - `detectarEnemigos(): List<Mutante>`
+- `run(): void`
 
 ---
 
@@ -246,7 +258,7 @@ Administra los encuentros entre mutantes enemigos.
 
 **Metodos**
 
-- `AdministradorCombate(radioEncuentro: double)`
+- `AdministradorCombate()`
 - `detectarEncuentro(mutante1: Mutante, mutante2: Mutante): boolean`
 - `ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void`
 - `decidirDefensa(): boolean`
@@ -260,24 +272,28 @@ Administra los encuentros entre mutantes enemigos.
 
 ### Observer
 
-Utiliza las clases que nos da java
+Define el método de actualización de la vista.
+
+**Metodos**
+
+- `actualizar(): void`
+
+---
+
 
 ### VerCampoBatalla
 
-Representa visualmente el campo de batalla.
+Implementa la interfaz `Observer`.
 
 - `campoBatalla: CampoBatalla`
 
 **Metodos**
 
 - `VerCampoBatalla(campoBatalla: CampoBatalla)`
-- `mostrarCampo(): void`
-- `dibujarMutantes(): void`
-- `mostrarMarcador(): void`
-- `mostrarGanador(): void`
 - `actualizar(): void`
-
-usa `Observer`.
+- `getCampoBatalla(): CampoBatalla`
+- `getAncho(): int`
+- `getAlto(): int`
 
 ---
 
@@ -285,15 +301,19 @@ usa `Observer`.
 
 Controla la interacción del usuario con la interfaz.
 
-- `controladorBatalla: ControladorBatalla`
-- `verCampoBatalla: VerCampoBatalla`
-
+- `vista: VerCampoBatalla`
+- `temporizador: Timer`
+- `controlador: ControladorBatalla`
+- `botonNuevaBatalla: JButton`
+- `batallaFinalizada: boolean`
 **Metodos**
 
-- `BatallaUI(controladorBatalla: ControladorBatalla, verCampoBatalla: VerCampoBatalla)`
+- `BatallaUI(campoBatalla: CampoBatalla, controladorBatalla: ControladorBatalla)`
+- `actualizar(): void`
 - `recibirCantidadEquipo(): int`
 - `iniciarBatalla(): void`
-- `nuevaBatalla(): void`
+- `iniciarBatalla(cantidad: int): void`
+- `nuevaBatalla(cantidad: int): void`
 
 ---
 
@@ -308,18 +328,38 @@ Valores configurables del juego.
 - `MAX_TAMANO_EQUIPO: int`
 - `MIN_DEFENSA: int`
 - `MAX_DEFENSA: int`
+- `PROBABILIDAD_DEFENSA: double`
 - `MIN_PODER_DANIO: int`
 - `MAX_PODER_DANIO: int`
 - `DANIO_AUMENTA: int`
-- `MISMA_VELOCIDAD: double`
+- `MAX_DANIO_PODER: int`
+- `CANTIDAD_PODERES: int`
+- `MIN_EDAD: int`
+- `MAX_EDAD: int`
+- `MISMA_VELOCIDAD: int`
 - `ENCUENTRO_RADIO: double`
+- `ANCHO_VENTANA: int`
+- `ALTO_VENTANA: int`
 - `ALTO_CAMPOBATALLA: int`
 - `ANCHO_CAMPOBATALLA: int`
 - `VIVOS_EQUIPO1: int`
 - `MUERTOS_EQUIPO1: int`
 - `VIVOS_EQUIPO2: int`
 - `MUERTOS_EQUIPO2: int`
+- `ACTUALIZACION_UI: int`
+- `ALTO_ESTADISTICAS: int`
+- `TAMANO_MUTANTE: int`
 
+---
+
+# Pruebas por capa
+
+El proyecto incluye un `main` para probar cada capa de forma independiente:
+
+- `MainModelo`: prueba los elementos de la capa Modelo.
+- `MainGame`: prueba la creación de equipos, mutantes y marcador.
+- `MainControl`: prueba el movimiento, los encuentros y el combate.
+- `MainUI`: ejecuta el juego completo mediante la interfaz gráfica.
 ---
 # UML
 
@@ -328,10 +368,10 @@ Valores configurables del juego.
 
 ```
 @startuml
-
 title Mutant Battle - UML Caso #1
 
 skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
 
 '========================================
 ' CAPA MODEL
@@ -340,37 +380,40 @@ skinparam classAttributeIconSize 0
 package "Model" {
 
     class Persona {
-        - nombre: String
-        - edad: int
+        # nombre: String
+        - edad: byte
 
-        + Persona(nombre: String, edad: int)
+        + Persona(nombre: String, edad: byte)
         + getNombre(): String
         + setNombre(nombre: String): void
-        + getEdad(): int
-        + setEdad(edad: int): void
+        + getEdad(): byte
+        + setEdad(edad: byte): void
     }
 
     class Mutante {
-        - energia: double
+        - energia: int
         - defensa: int
         - posicionX: int
         - posicionY: int
         - poder: IPower
+        - direccionX: int
+        - direccionY: int
 
-        + Mutante(nombre: String, edad: int, energia: double, defensa: int, posicionX: int, posicionY: int, poder: IPower)
-        + getEnergia(): double
-        + setEnergia(energia: double): void
+        + Mutante(nombre: String, edad: byte, energia: int, defensa: int, posicionX: int, posicionY: int, poder: IPower)
+        + getEnergia(): int
         + getDefensa(): int
-        + setDefensa(defensa: int): void
         + getPosicionX(): int
-        + setPosicionX(posicionX: int): void
         + getPosicionY(): int
-        + setPosicionY(posicionY: int): void
         + getPoder(): IPower
+        + setEnergia(energia: int): void
+        + setDefensa(defensa: int): void
+        + setPosicionX(posicionX: int): void
+        + setPosicionY(posicionY: int): void
         + setPoder(poder: IPower): void
         + estaVivo(): boolean
         + recibirDanio(danio: double): void
         + mover(ancho: int, alto: int): void
+        - obtenerDireccion(): int
     }
 
     interface IPower {
@@ -381,7 +424,6 @@ package "Model" {
 
     class PoderHielo {
         - danio: int
-
         + PoderHielo(danio: int)
         + dispararPoder(): void
         + getDanio(): int
@@ -390,7 +432,6 @@ package "Model" {
 
     class PoderRayos {
         - danio: int
-
         + PoderRayos(danio: int)
         + dispararPoder(): void
         + getDanio(): int
@@ -399,7 +440,6 @@ package "Model" {
 
     class PoderTelepatia {
         - danio: int
-
         + PoderTelepatia(danio: int)
         + dispararPoder(): void
         + getDanio(): int
@@ -408,7 +448,6 @@ package "Model" {
 
     class PoderFuego {
         - danio: int
-
         + PoderFuego(danio: int)
         + dispararPoder(): void
         + getDanio(): int
@@ -417,7 +456,6 @@ package "Model" {
 
     class PoderRegeneracion {
         - danio: int
-
         + PoderRegeneracion(danio: int)
         + dispararPoder(): void
         + getDanio(): int
@@ -437,6 +475,9 @@ package "Game" {
         - mutantes: List<Mutante>
 
         + Equipo(color: String, simbolo: Image)
+        + getColor(): String
+        + getSimbolo(): Image
+        + setSimbolo(simbolo: Image): void
         + agregarMutante(mutante: Mutante): void
         + getMutantes(): List<Mutante>
         + contarVivos(): int
@@ -447,6 +488,7 @@ package "Game" {
     class Marcador {
         - estadisticas: int[]
 
+        + Marcador()
         + actualizar(equipo1: Equipo, equipo2: Equipo): void
         + getVivosEquipo1(): int
         + getMuertosEquipo1(): int
@@ -459,12 +501,14 @@ package "Game" {
         - equipo2: Equipo
         - marcador: Marcador
 
+        + CampoBatalla()
         + crearEquipos(cantidad: int): void
         + getEquipo1(): Equipo
         + getEquipo2(): Equipo
         + getMarcador(): Marcador
         + batallaTerminada(): boolean
         + obtenerGanador(): Equipo
+        - crearMutante(nombre: String): Mutante
     }
 }
 
@@ -482,18 +526,23 @@ package "Control" {
         + ControladorBatalla(campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)
         + iniciarJuego(cantidad: int): void
         + generarEquipos(cantidad: int): void
-        + iniciarMovimiento(): void
+        + iniciarMovimiento(ancho: int, alto: int): void
         + controlarBatalla(): void
         + finalizarJuego(): void
         + nuevaBatalla(): void
+        + getCampoBatalla(): CampoBatalla
     }
 
     class HiloMutante {
         - mutante: Mutante
         - campoBatalla: CampoBatalla
         - administradorCombate: AdministradorCombate
+        - activo: boolean
+        - ancho: int
+        - alto: int
 
-        + HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate)
+        + HiloMutante(mutante: Mutante, campoBatalla: CampoBatalla, administradorCombate: AdministradorCombate, ancho: int, alto: int)
+        + run(): void
         + correr(): void
         + detener(): void
         + detectarEnemigos(): List<Mutante>
@@ -502,13 +551,14 @@ package "Control" {
     class AdministradorCombate {
         - radioEncuentro: double
 
-        + AdministradorCombate(radioEncuentro: double)
+        + AdministradorCombate()
         + detectarEncuentro(mutante1: Mutante, mutante2: Mutante): boolean
-        + ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void
         + decidirDefensa(): boolean
         + calcularDanio(atacante: Mutante, defensor: Mutante, defiende: boolean): double
         + aplicarDanio(defensor: Mutante, danio: double): void
         + aumentarDanioPoder(atacante: Mutante): void
+        + ejecutarEncuentro(mutante1: Mutante, mutante2: Mutante): void
+        - atacar(atacante: Mutante, defensor: Mutante, defiende: boolean): void
     }
 }
 
@@ -518,25 +568,40 @@ package "Control" {
 
 package "UI" {
 
+    interface Observer {
+        + actualizar(): void
+    }
+
     class VerCampoBatalla {
         - campoBatalla: CampoBatalla
 
         + VerCampoBatalla(campoBatalla: CampoBatalla)
-        + mostrarCampo(): void
-        + dibujarMutantes(): void
-        + mostrarMarcador(): void
-        + mostrarGanador(): void
+        # paintComponent(graphics: Graphics): void
         + actualizar(): void
+        + getCampoBatalla(): CampoBatalla
+        + getAncho(): int
+        + getAlto(): int
+        - dibujarEquipo(graphics: Graphics, equipo: Equipo, color: Color): void
+        - dibujarBarraSuperior(graphics: Graphics): void
+        - dibujarSimbolos(graphics: Graphics): void
+        - dibujarGanador(graphics: Graphics): void
     }
 
     class BatallaUI {
-        - controladorBatalla: ControladorBatalla
-        - verCampoBatalla: VerCampoBatalla
+        - vista: VerCampoBatalla
+        - temporizador: Timer
+        - controlador: ControladorBatalla
+        - botonNuevaBatalla: JButton
+        - batallaFinalizada: boolean
 
-        + BatallaUI(controladorBatalla: ControladorBatalla, verCampoBatalla: VerCampoBatalla)
-        + recibirCantidadEquipo(): int
+        + BatallaUI(campoBatalla: CampoBatalla, controladorBatalla: ControladorBatalla)
+        + actualizar(): void
         + iniciarBatalla(): void
-        + nuevaBatalla(): void
+        + iniciarBatalla(cantidad: int): void
+        + nuevaBatalla(cantidad: int): void
+        - cambiarVista(): void
+        - iniciarNuevaBatalla(): void
+        - recibirCantidadEquipo(): int
     }
 }
 
@@ -552,29 +617,35 @@ package "Constantes" {
         MAX_TAMANO_EQUIPO: int
         MIN_DEFENSA: int
         MAX_DEFENSA: int
+        PROBABILIDAD_DEFENSA: double
         MIN_PODER_DANIO: int
         MAX_PODER_DANIO: int
         DANIO_AUMENTA: int
-        MISMA_VELOCIDAD: double
+        MAX_DANIO_PODER: int
+        CANTIDAD_PODERES: int
+        MIN_EDAD: int
+        MAX_EDAD: int
+        MISMA_VELOCIDAD: int
         ENCUENTRO_RADIO: double
+        ALTO_VENTANA: int
+        ANCHO_VENTANA: int
         ALTO_CAMPOBATALLA: int
         ANCHO_CAMPOBATALLA: int
         VIVOS_EQUIPO1: int
         MUERTOS_EQUIPO1: int
         VIVOS_EQUIPO2: int
         MUERTOS_EQUIPO2: int
+        ACTUALIZACION_UI: int
+        ALTO_ESTADISTICAS: int
+        TAMANO_MUTANTE: int
     }
 }
 
 '========================================
-' HERENCIA
+' HERENCIA Y POLIMORFISMO
 '========================================
 
 Persona <|-- Mutante
-
-'========================================
-' POLIMORFISMO
-'========================================
 
 IPower <|.. PoderHielo
 IPower <|.. PoderRayos
@@ -614,22 +685,32 @@ AdministradorCombate --> Mutante : combate
 ' RELACIONES UI
 '========================================
 
+VerCampoBatalla ..|> Observer
 VerCampoBatalla --> CampoBatalla
+VerCampoBatalla --> Equipo
+
 BatallaUI --> ControladorBatalla
 BatallaUI --> VerCampoBatalla
+BatallaUI --> CampoBatalla
 
 '========================================
-' CONSTANTES
+' RELACIONES CONSTANTES
 '========================================
 
-IConstants ..> Marcador : índices
-IConstants ..> CampoBatalla : dimensiones
-IConstants ..> Equipo : límites
-IConstants ..> Mutante : valores
-IConstants ..> IPower : daño
+Mutante ..> IConstants
+PoderHielo ..> IConstants
+PoderRayos ..> IConstants
+PoderTelepatia ..> IConstants
+PoderFuego ..> IConstants
+PoderRegeneracion ..> IConstants
 
+CampoBatalla ..> IConstants
+Marcador ..> IConstants
+AdministradorCombate ..> IConstants
+HiloMutante ..> IConstants
+BatallaUI ..> IConstants
+VerCampoBatalla ..> IConstants
 @enduml
-
 ```
 
 
