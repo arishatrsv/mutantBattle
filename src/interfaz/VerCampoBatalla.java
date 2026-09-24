@@ -8,6 +8,7 @@ import modelo.Mutante;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
+//import java.awt.Image;
 
 public class VerCampoBatalla extends JPanel implements Observer{ //consulta el CampoBatalla y será la encargada de representar sus datos.
     private CampoBatalla campoBatalla; 
@@ -22,6 +23,7 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
             return;
         }
 
+        //dibujarSimbolos(graphics);
         dibujarEquipo(graphics, this.campoBatalla.getEquipo1(), Color.RED);
         dibujarEquipo(graphics, this.campoBatalla.getEquipo2(), Color.BLUE);
         dibujarMarcador(graphics);
@@ -46,6 +48,16 @@ public class VerCampoBatalla extends JPanel implements Observer{ //consulta el C
         }
     }
 
+    /*private void dibujarSimbolos(Graphics graphics){
+        Image simboloRojo = this.campoBatalla.getEquipo1().getSimbolo();
+        Image simboloAzul = this.campoBatalla.getEquipo2().getSimbolo();
+        if(simboloRojo != null){
+            graphics.drawImage(simboloRojo, 20, 25, 60, 60, null);
+        }
+        if(simboloAzul != null){
+            graphics.drawImage(simboloAzul, 720, 25, 60, 60, null);
+        }
+    }*/
     private void dibujarMarcador(Graphics graphics){
         graphics.setColor(Color.BLACK);
         graphics.drawString("Equipo 1 - Vivos: " + this.campoBatalla.getMarcador().getVivosEquipo1()

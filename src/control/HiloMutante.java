@@ -11,7 +11,7 @@ public class HiloMutante extends Thread {
     private Mutante mutante;
     private CampoBatalla campoBatalla;
     private AdministradorCombate administradorCombate;
-    private boolean activo;
+    private boolean activo; //estado del hilo
 
     public HiloMutante( //constructor
             Mutante pMutante,

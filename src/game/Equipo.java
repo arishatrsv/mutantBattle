@@ -21,6 +21,14 @@ public class Equipo {
         return this.color;
     }
 
+    public Image getSimbolo(){
+        return this.simbolo;
+    }
+
+    public void setSimbolo(Image pSimbolo){
+        this.simbolo = pSimbolo;
+    }
+
     public void agregarMutante(Mutante pMutante){ //agrega un mutante al equipo
         this.mutantes.add(pMutante);
     }

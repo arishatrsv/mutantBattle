@@ -9,7 +9,7 @@ package modelo;
 
 
 public class Persona{
-    private byte edad; // cuando no se especifica la visibilidad, el default es protected
+    private byte edad; 
     protected String nombre;
 
     //Constructor con parámetros

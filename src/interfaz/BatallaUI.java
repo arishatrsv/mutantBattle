@@ -3,6 +3,8 @@ package interfaz;
 import constantes.IConstants;
 import control.ControladorBatalla;
 import game.CampoBatalla;
+//import java.awt.Image;
+//import javax.swing.ImageIcon;
 import java.awt.BorderLayout;
 import javax.swing.JButton; //para el boton
 
@@ -50,6 +52,18 @@ public class BatallaUI extends JFrame{
     public void iniciarBatalla(int pCantidad){
         Thread hiloBatalla = new Thread(() -> {
             this.controlador.iniciarJuego(pCantidad);
+
+            /*ImageIcon iconoRojo = new ImageIcon("imagenes/rojo.png");
+            ImageIcon iconoAzul = new ImageIcon("imagenes/azul.png");
+            Image imagenRojo = iconoRojo.getImage();
+            Image imagenAzul = iconoAzul.getImage();
+
+            this.controlador.getCampoBatalla().getEquipo1().setSimbolo(imagenRojo);
+            this.controlador.getCampoBatalla().getEquipo2().setSimbolo(imagenAzul);
+
+            this.controlador.iniciarMovimiento();
+            this.controlador.controlarBatalla();
+            this.controlador.finalizarJuego();*/
         });
         hiloBatalla.start();
     }

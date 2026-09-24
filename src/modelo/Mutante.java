@@ -4,7 +4,7 @@ package modelo;
 import constantes.IConstants;
 
 public class Mutante extends Persona{
-    private double energia;
+    private int energia;
     private int defensa;
     private int posicionX;
     private int posicionY;
@@ -13,7 +13,7 @@ public class Mutante extends Persona{
     private int direccionY;
 
     //Constructor con parámetros
-    public Mutante(String pNombre, byte pEdad, double pEnergia, int pDefensa,
+    public Mutante(String pNombre, byte pEdad, int pEnergia, int pDefensa,
                     int pPosicionX, int pPosicionY, IPower pPoder) {
         super(pNombre, pEdad); //pEdad ya es byte
         this.energia = pEnergia;
@@ -25,7 +25,7 @@ public class Mutante extends Persona{
         this.direccionY = obtenerDireccion();    }
 
     // métodos get para leer los valores de los atributos de la instancia
-    public double getEnergia(){
+    public int getEnergia(){
         return this.energia;
     }
 
@@ -46,7 +46,7 @@ public class Mutante extends Persona{
     }
 
     // métodos set para modificar los valores de los atributos de la instancia
-    public void setEnergia(double pEnergia){
+    public void setEnergia(int pEnergia){
         this.energia = pEnergia;
     }
 
@@ -85,7 +85,7 @@ public class Mutante extends Persona{
         if(this.posicionX <= 0 || this.posicionX >= limiteDerecho){
             this.direccionX *= -1;
         }
-        if(this.posicionY <= IConstants.ALTO_ESTADISTICAS || this.posicionY >= limiteInferior){
+        if(this.posicionY <= 0 || this.posicionY >= limiteInferior){
             this.direccionY *= -1;
         }
         if(this.posicionX < 0){
@@ -94,8 +94,8 @@ public class Mutante extends Persona{
         if(this.posicionX > limiteDerecho){
             this.posicionX = limiteDerecho;
         }
-        if(this.posicionY < IConstants.ALTO_ESTADISTICAS){
-            this.posicionY = IConstants.ALTO_ESTADISTICAS;
+        if(this.posicionY < 0){
+            this.posicionY = 0;
         }
         if(this.posicionY > limiteInferior){
             this.posicionY = limiteInferior;
