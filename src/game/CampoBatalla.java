@@ -28,43 +28,43 @@ public class CampoBatalla {
     }
 
     private Mutante crearMutante(String pNombre){ //crea un mutante con valores aleatorios
-    byte edad = (byte)(IConstants.MIN_EDAD + Math.random() * (IConstants.MAX_EDAD - IConstants.MIN_EDAD + 1)); //edad aleatoria dentro del rango permitido
-    int defensa=(int)(Math.random()*
-            (IConstants.MAX_DEFENSA-IConstants.MIN_DEFENSA+1))
-            +IConstants.MIN_DEFENSA; //defensa aleatoria entre 1 y 3
-    int posicionX=(int)(Math.random()*IConstants.ANCHO_CAMPOBATALLA); //posición X aleatoria en el ancho del campo
-    int posicionY=(int)(Math.random()*IConstants.ALTO_CAMPOBATALLA); //posición Y aleatoria en la altura del campo
+        byte edad = (byte)(IConstants.MIN_EDAD + Math.random() * (IConstants.MAX_EDAD - IConstants.MIN_EDAD + 1)); //edad aleatoria dentro del rango permitido
+        int defensa=(int)(Math.random()*
+                (IConstants.MAX_DEFENSA-IConstants.MIN_DEFENSA+1))
+                +IConstants.MIN_DEFENSA; //defensa aleatoria entre 1 y 3
+        int posicionX=(int)(Math.random()*IConstants.ANCHO_CAMPOBATALLA); //posición X aleatoria en el ancho del campo
+        int posicionY=(int)(Math.random()*IConstants.ALTO_CAMPOBATALLA); //posición Y aleatoria en la altura del campo
 
-    int danio=(int)(Math.random()*
-            (IConstants.MAX_PODER_DANIO-IConstants.MIN_PODER_DANIO+1))
-            +IConstants.MIN_PODER_DANIO; //daño base aleatorio del poder
-    IPower poder;
-    int tipoPoder=(int)(Math.random()*IConstants.CANTIDAD_PODERES); //selecciona aleatoriamente uno de los cinco poderes
-    if(tipoPoder==0){
-        poder=new PoderHielo(danio); //si obtiene 0, usa hielo
+        int danio=(int)(Math.random()*
+                (IConstants.MAX_PODER_DANIO-IConstants.MIN_PODER_DANIO+1))
+                +IConstants.MIN_PODER_DANIO; //daño base aleatorio del poder
+        IPower poder;
+        int tipoPoder=(int)(Math.random()*IConstants.CANTIDAD_PODERES); //selecciona aleatoriamente uno de los cinco poderes
+        if(tipoPoder==0){
+            poder=new PoderHielo(danio); //si obtiene 0, usa hielo
+        }
+        else if(tipoPoder==1){
+            poder=new PoderRayos(danio); //si obtiene 1, usa rayos
+        }
+        else if(tipoPoder==2){
+            poder=new PoderTelepatia(danio); //si obtiene 2, usa telepatía
+        }
+        else if(tipoPoder==3){
+            poder=new PoderFuego(danio); //si obtiene 3, usa fuego
+        }
+        else{
+            poder=new PoderRegeneracion(danio); //si obtiene 4, usa regeneración
+        }
+        return new Mutante( //crea el mutante con los valores generados
+                pNombre,
+                edad,
+                IConstants.INICIAL_ENERGIA,
+                defensa,
+                posicionX,
+                posicionY,
+                poder
+        );
     }
-    else if(tipoPoder==1){
-        poder=new PoderRayos(danio); //si obtiene 1, usa rayos
-    }
-    else if(tipoPoder==2){
-        poder=new PoderTelepatia(danio); //si obtiene 2, usa telepatía
-    }
-    else if(tipoPoder==3){
-        poder=new PoderFuego(danio); //si obtiene 3, usa fuego
-    }
-    else{
-        poder=new PoderRegeneracion(danio); //si obtiene 4, usa regeneración
-    }
-    return new Mutante( //crea el mutante con los valores generados
-            pNombre,
-            edad,
-            IConstants.INICIAL_ENERGIA,
-            defensa,
-            posicionX,
-            posicionY,
-            poder
-    );
-}
 
     public Equipo getEquipo1(){ //devuelve el equipo 1
         return this.equipo1;
